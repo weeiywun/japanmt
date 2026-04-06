@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>立山黑部・剱岳・合掌村 6天行程 ｜ 2026 September</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600&family=Noto+Sans+TC:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:#1a1714;--ink2:#4a4540;--muted:#8a8078;
+  --teal:#0F6E56;--teal2:#1D9E75;--teal-bg:#d8f0e9;
+  --amber:#9a6c1a;--amber-bg:#fdf1d8;
+  --coral:#c0442a;--coral-bg:#faeae6;
+  --blue:#1a5fa0;--blue-bg:#e8f2fb;
+  --paper:#faf8f4;--paper2:#f3f0e8;
+  --border:#ddd8cc;--border2:#eae6dc;
+  --shadow:0 2px 16px rgba(26,23,20,.07);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--paper);color:var(--ink);font-size:14px;line-height:1.7}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(160deg,#0d2a1f 0%,#1a4030 45%,#0f3528 100%);color:#fff;padding:64px 20px 48px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;opacity:.04;background-image:repeating-linear-gradient(45deg,#fff 0,#fff 1px,transparent 0,transparent 50%);background-size:20px 20px}
+.hero-inner{position:relative;z-index:1;max-width:720px;margin:0 auto}
+.hero-eyebrow{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:#7dc9a8;margin-bottom:12px}
+.hero-title{font-family:'DM Serif Display',serif;font-size:clamp(28px,7vw,52px);line-height:1.15;margin-bottom:6px;letter-spacing:-.5px}
+.hero-sub{font-size:14px;color:#a0c9b8;font-weight:300;margin-bottom:28px}
+.hero-chips{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:20px;padding:5px 14px;font-size:12px;color:#c8e8d8}
+.chip b{color:#7dc9a8}
+
+/* ── TABS ── */
+.tabs-bar{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.tabs-inner{max-width:960px;margin:0 auto;display:flex;overflow-x:auto;scrollbar-width:none}
+.tabs-inner::-webkit-scrollbar{display:none}
+.tab-btn{padding:13px 18px;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s;user-select:none}
+.tab-btn:hover{color:var(--teal)}
+.tab-btn.active{color:var(--teal);border-bottom-color:var(--teal)}
+
+/* ── MAIN ── */
+.main{max-width:960px;margin:0 auto;padding:36px 18px 80px}
+.sec{display:none}.sec.active{display:block}
+
+.sec-head{margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:12px}
+.sec-head h2{font-family:'DM Serif Display',serif;font-size:22px;font-weight:400}
+.sec-head p{font-size:12px;color:var(--muted)}
+
+/* ── ROUTE BANNER ── */
+.route-banner{background:linear-gradient(135deg,#0d2a1f,#1a4030);border-radius:12px;padding:18px 22px;color:#fff;margin-bottom:24px}
+.route-banner-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#7dc9a8;margin-bottom:4px}
+.route-banner-text{font-size:13px;color:#c0ddd2;line-height:1.9}
+.route-arrow{color:#3d9e7a;margin:0 4px}
+
+/* ── DAY CARDS ── */
+.day-card{background:#fff;border:1px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden;box-shadow:var(--shadow)}
+.day-hd{display:flex;align-items:center;gap:12px;padding:14px 18px;cursor:pointer;transition:background .15s}
+.day-hd:hover{background:var(--paper)}
+.day-badge{width:42px;height:42px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;letter-spacing:.5px;flex-shrink:0}
+.d-fly{background:var(--teal-bg);color:var(--teal)}
+.d-hike{background:#e8f4e8;color:#2a6a2a}
+.d-summit{background:var(--coral-bg);color:var(--coral)}
+.d-cross{background:var(--amber-bg);color:var(--amber)}
+.d-village{background:var(--blue-bg);color:var(--blue)}
+.day-meta{flex:1}
+.day-title{font-size:15px;font-weight:500;display:flex;align-items:center;gap:8px}
+.star-tag{font-size:10px;padding:2px 8px;border-radius:20px;background:var(--coral-bg);color:var(--coral);font-weight:600}
+.day-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.chevron{color:var(--muted);font-size:12px;transition:transform .25s}
+.day-card.open .chevron{transform:rotate(180deg)}
+.day-body{display:none;border-top:1px solid var(--border2)}
+.day-card.open .day-body{display:block}
+.day-body-inner{padding:18px 20px}
+
+/* ── TIMELINE ── */
+.tl{list-style:none}
+.tl-row{display:flex;gap:12px;margin-bottom:12px;align-items:flex-start}
+.tl-time{width:44px;font-size:11px;color:var(--muted);padding-top:3px;text-align:right;flex-shrink:0}
+.tl-mk{display:flex;flex-direction:column;align-items:center;flex-shrink:0;width:14px}
+.tl-dot{width:8px;height:8px;border-radius:50%;background:var(--teal);margin-top:4px;flex-shrink:0}
+.tl-dot.r{background:var(--coral)}
+.tl-dot.g{background:var(--border)}
+.tl-line{width:1px;background:var(--border2);flex:1;min-height:14px;margin-top:3px}
+.tl-body{font-size:13px;line-height:1.6;padding-bottom:2px}
+.tl-note{font-size:12px;color:var(--muted);margin-top:2px;line-height:1.5}
+
+.box-warn{background:var(--coral-bg);border-left:3px solid var(--coral);border-radius:0 8px 8px 0;padding:9px 13px;font-size:12px;color:#7a2a18;margin-top:12px;line-height:1.6}
+.box-info{background:var(--teal-bg);border-left:3px solid var(--teal2);border-radius:0 8px 8px 0;padding:9px 13px;font-size:12px;color:#0a4a38;margin-top:12px;line-height:1.6}
+
+/* ── ELEVATION CHART ── */
+.elev-wrap{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px;margin:16px 0}
+.elev-title{font-size:13px;font-weight:500;color:var(--ink2);margin-bottom:14px}
+.elev-svg-wrap{width:100%;overflow-x:auto}
+.elev-svg-wrap svg{min-width:560px;display:block}
+
+/* ── HIKING ROUTE TABLE ── */
+.hike-section{margin-top:16px}
+.hike-section h4{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.waypoints{display:flex;flex-direction:column;gap:4px}
+.wp{display:flex;align-items:center;gap:10px;font-size:12px;padding:6px 10px;background:var(--paper2);border-radius:8px}
+.wp-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.wp-name{font-weight:500;flex:1}
+.wp-elev{color:var(--muted);font-size:11px;min-width:56px;text-align:right}
+.wp-time{color:var(--teal);font-size:11px;min-width:40px;text-align:right}
+.wp-arrow{color:var(--border);font-size:10px}
+
+/* ── MAP SECTION ── */
+.map-section{margin-bottom:20px}
+.map-placeholder{background:linear-gradient(135deg,#0d2a1f,#1a4030);border-radius:12px;overflow:hidden;position:relative}
+.map-iframe{width:100%;height:480px;border:none;border-radius:12px;display:block}
+.map-legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:12px}
+.legend-item{display:flex;align-items:center;gap:7px;font-size:12px;background:#fff;border:1px solid var(--border);border-radius:8px;padding:7px 10px}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+
+/* ── FLIGHT SECTION ── */
+.flight-header{background:linear-gradient(135deg,#0d2a1f,#1a4030);border-radius:12px;padding:18px 22px;color:#fff;margin-bottom:18px}
+.flight-header h3{font-family:'DM Serif Display',serif;font-size:18px;margin-bottom:2px}
+.flight-header p{font-size:12px;color:#7dc9a8}
+.flight-note-box{background:#fffde8;border:1px solid #e8d060;border-radius:10px;padding:12px 16px;font-size:12px;color:#5a4a10;margin-bottom:18px;line-height:1.7}
+.flight-cards{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.flight-card{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+.flight-card.rec{border:2px solid var(--teal)}
+.flight-rec-bar{background:var(--teal);color:#fff;font-size:11px;font-weight:600;padding:5px 14px;letter-spacing:1px}
+.flight-body{padding:15px 18px}
+.flight-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+.airline-name{font-size:14px;font-weight:500}
+.airline-code{font-size:11px;color:var(--muted);margin-top:1px}
+.price-big{font-family:'DM Serif Display',serif;font-size:22px;color:var(--teal)}
+.price-note{font-size:11px;color:var(--muted)}
+.route-vis{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.airport-blk{text-align:center}
+.airport-code{font-family:'DM Serif Display',serif;font-size:20px}
+.airport-time{font-size:13px;margin-top:1px}
+.airport-name{font-size:11px;color:var(--muted);margin-top:1px}
+.flight-line-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px}
+.flight-line{width:100%;height:1px;background:var(--border);position:relative}
+.flight-line::after{content:'✈';position:absolute;top:-9px;left:50%;transform:translateX(-50%);font-size:14px;color:var(--teal);background:#fff;padding:0 4px}
+.flight-duration{font-size:11px;color:var(--muted)}
+.flight-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.f-tag{font-size:11px;padding:3px 9px;border-radius:20px}
+.f-tag-good{background:var(--teal-bg);color:var(--teal)}
+.f-tag-neutral{background:var(--paper2);color:var(--ink2)}
+.f-tag-warn{background:var(--amber-bg);color:var(--amber)}
+.flight-detail{font-size:12px;color:var(--muted);line-height:1.6;border-top:1px solid var(--border2);padding-top:10px}
+
+.strategy-box{background:var(--amber-bg);border:1px solid #e8c060;border-radius:12px;padding:18px 22px}
+.strategy-box h3{font-size:14px;font-weight:600;color:var(--amber);margin-bottom:10px}
+.strategy-box ul{list-style:none;font-size:13px;color:#5a4010;line-height:2}
+.strategy-box ul li::before{content:'→ ';color:var(--amber)}
+
+/* ── BUDGET ── */
+.budget-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:24px}
+.bstat{background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.bstat-label{font-size:11px;color:var(--muted);margin-bottom:4px}
+.bstat-val{font-family:'DM Serif Display',serif;font-size:24px;color:var(--teal)}
+.bstat-sub{font-size:11px;color:var(--muted);margin-top:1px}
+.btable-wrap{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:14px}
+.btable-title{padding:10px 14px;background:var(--paper2);font-size:12px;font-weight:600;color:var(--ink2);letter-spacing:.5px;text-transform:uppercase;border-bottom:1px solid var(--border)}
+.btable{width:100%;border-collapse:collapse;font-size:13px}
+.btable th{font-size:11px;font-weight:500;color:var(--muted);text-align:left;padding:7px 12px;border-bottom:1px solid var(--border);background:var(--paper2)}
+.btable td{padding:9px 12px;border-bottom:1px solid var(--border2);vertical-align:top}
+.btable tr:last-child td{border-bottom:none}
+.btable tfoot td{padding:10px 12px;background:var(--paper2);font-weight:600;border-top:1px solid var(--border)}
+.cat{display:inline-block;font-size:10px;padding:2px 8px;border-radius:20px}
+.cat-t{background:var(--teal-bg);color:var(--teal)}
+.cat-l{background:var(--amber-bg);color:var(--amber)}
+.cat-f{background:#edf8e8;color:#2a6a2a}
+.cat-m{background:var(--paper2);color:var(--ink2)}
+.total-band{background:#0d2a1f;color:#fff;border-radius:12px;padding:18px 22px;text-align:center;margin-top:8px}
+.total-band p{font-size:11px;color:#7dc9a8;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+.total-big{font-family:'DM Serif Display',serif;font-size:38px;color:#a8ebd0}
+.total-sub{font-size:12px;color:#6aaa88;margin-top:4px}
+
+/* ── BOOKING ── */
+.booking-list{display:flex;flex-direction:column;gap:10px}
+.booking-item{background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px 18px;display:flex;gap:14px;align-items:flex-start}
+.bk-bar{width:5px;border-radius:3px;flex-shrink:0;align-self:stretch;min-height:36px}
+.bk-red{background:var(--coral)}
+.bk-amber{background:#e8a030}
+.bk-teal{background:var(--teal)}
+.bk-title{font-size:14px;font-weight:500;margin-bottom:3px}
+.bk-meta{font-size:12px;color:var(--muted);line-height:1.6}
+.bk-when{font-size:11px;padding:3px 9px;border-radius:6px;font-weight:500;flex-shrink:0}
+.bk-now{background:var(--coral-bg);color:var(--coral)}
+.bk-soon{background:var(--amber-bg);color:var(--amber)}
+.bk-ok{background:var(--teal-bg);color:var(--teal)}
+
+/* ── GEAR ── */
+.gear-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.gear-card{background:#fff;border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.gear-head{padding:10px 14px;border-bottom:1px solid var(--border2);font-size:13px;font-weight:600}
+.gear-items{padding:10px 14px}
+.gear-item{display:flex;align-items:flex-start;gap:7px;font-size:13px;margin-bottom:7px;line-height:1.5}
+.gear-item:last-child{margin-bottom:0}
+.gear-box{width:15px;height:15px;border:1.5px solid var(--border);border-radius:4px;flex-shrink:0;margin-top:1px}
+.req{font-size:10px;color:var(--coral);font-weight:600;margin-left:3px}
+
+@media(max-width:600px){
+  .hero{padding:44px 14px 36px}
+  .main{padding:20px 12px 60px}
+  .budget-stats{grid-template-columns:1fr 1fr}
+  .route-vis{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Japan Alpine · September 2026</div>
+    <h1 class="hero-title">立山黑部・剱岳<br>合掌村 6天行程</h1>
+    <p class="hero-sub">名古屋進出 ｜ 信濃大町 → 室堂 → 剱澤 → 阿爾卑斯橫斷 → 白川鄉</p>
+    <div class="hero-chips">
+      <div class="chip">🗓 6天5夜</div>
+      <div class="chip">🏔 <b>2,999m</b> 剱岳</div>
+      <div class="chip">✈ IT206 NGO進出</div>
+      <div class="chip">💴 <b>~NT$42,000</b></div>
+      <div class="chip">📅 建議9月中旬週一出發</div>
+    </div>
+  </div>
+</div>
+
+<nav class="tabs-bar">
+  <div class="tabs-inner">
+    <div class="tab-btn active" onclick="showTab('itinerary',this)">📅 行程規劃</div>
+    <div class="tab-btn" onclick="showTab('hiking',this)">🧗 登山路線</div>
+    <div class="tab-btn" onclick="showTab('flights',this)">✈ 機票方案</div>
+    <div class="tab-btn" onclick="showTab('budget',this)">💴 預算表</div>
+    <div class="tab-btn" onclick="showTab('booking',this)">📌 預訂清單</div>
+    <div class="tab-btn" onclick="showTab('gear',this)">🎒 裝備清單</div>
+  </div>
+</nav>
+
+<div class="main">
+
+<!-- ══════════════════ 行程規劃 ══════════════════ -->
+<section id="itinerary" class="sec active">
+  <div class="sec-head"><h2>6天詳細行程</h2><p>週一出發最佳 ｜ 機票 IT206/IT207 完美配合</p></div>
+
+  <div class="route-banner">
+    <div class="route-banner-label">行程路線</div>
+    <div class="route-banner-text">
+      TPE<span class="route-arrow">→</span>NGO（IT206）<span class="route-arrow">→</span>信濃大町（D1）<span class="route-arrow">→</span>扇澤・室堂・立山三山（D2）<span class="route-arrow">→</span>剱岳 2,999m 攻頂（D3）<span class="route-arrow">→</span>黑部水壩・白川鄉合掌村（D4）<span class="route-arrow">→</span>高山・名古屋（D5）<span class="route-arrow">→</span>NGO<span class="route-arrow">→</span>TPE（IT207）（D6）
+    </div>
+  </div>
+
+  <!-- D1 -->
+  <div class="day-card" onclick="toggleDay(this)">
+    <div class="day-hd">
+      <div class="day-badge d-fly">D1</div>
+      <div class="day-meta">
+        <div class="day-title">桃園 → 名古屋 → 信濃大町</div>
+        <div class="day-sub">IT206 TPE 09:00 → NGO 12:55 ｜ 住：大町溫泉鄉旅館</div>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="tl">
+        <li class="tl-row"><span class="tl-time">07:30</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">桃園機場 T1 報到（IT206 起飛前90分）</div></li>
+        <li class="tl-row"><span class="tl-time">09:00</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">IT206 TPE 出發<div class="tl-note">週一二三五六飛，飛行約2h55m</div></div></li>
+        <li class="tl-row"><span class="tl-time">12:55</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">抵達名古屋中部機場（NGO）<div class="tl-note">出關+取行李約45分，13:40前可離開機場</div></div></li>
+        <li class="tl-row"><span class="tl-time">13:50</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">名鐵至名古屋站（28分）→ 特急しなの → 松本（約2h）<div class="tl-note">特急しなの 指定席，約每小時一班</div></div></li>
+        <li class="tl-row"><span class="tl-time">17:00</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">松本站換乘 JR 大糸線至信濃大町（35分）→ 巴士至大町溫泉鄉（13分）<div class="tl-note">約18:00前抵達旅館，Check-in 泡湯整備</div></div></li>
+        <li class="tl-row"><span class="tl-time">晚間</span><div class="tl-mk"><div class="tl-dot g"></div></div><div class="tl-body">旅館晚餐（含1泊2食），整理翌日登山裝備，早睡</div></li>
+      </ul>
+      <div class="box-info">信濃大町有黑貓宅急便，可在此將不必要行李（城市用衣物）寄至名古屋飯店，一件約¥1,500，山中輕裝上路</div>
+    </div></div>
+  </div>
+
+  <!-- D2 -->
+  <div class="day-card" onclick="toggleDay(this)">
+    <div class="day-hd">
+      <div class="day-badge d-hike">D2</div>
+      <div class="day-meta">
+        <div class="day-title">扇澤 → 橫斷 → 立山三山 → 剣山荘</div>
+        <div class="day-sub">住：剣山荘 2,520m ｜ 全天約 9–10h（含交通）</div>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="tl">
+        <li class="tl-row"><span class="tl-time">06:00</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">旅館早餐 or 便當，搭巴士至扇澤（25分）</div></li>
+        <li class="tl-row"><span class="tl-time">07:30</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">扇澤出發，阿爾卑斯路線 6 段交通接力<div class="tl-note">關電隧道電氣巴士→黑部水壩→黑部湖→黑部平→大觀峰→電動巴士→室堂（約2.5h）</div></div></li>
+        <li class="tl-row"><span class="tl-time">10:00</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">室堂（2,450m）出發，開始立山三山縱走<div class="tl-note">室堂→一ノ越→雄山 3,003m（約2h30m）</div></div></li>
+        <li class="tl-row"><span class="tl-time">12:30</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">雄山山頂（立山神社）→ 大汝山 3,015m → 富士ノ折立 → 真砂岳 → 別山乗越<div class="tl-note">別山乗越（剱御前小屋 2,750m）是眺望剱岳全貌最佳角度</div></div></li>
+        <li class="tl-row"><span class="tl-time">15:30</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">別山乗越下降至剱澤 → 剣山荘 Check-in<div class="tl-note">下降至小屋約40分，距剱岳登山口步行30分</div></div></li>
+        <li class="tl-row"><span class="tl-time">17:00</span><div class="tl-mk"><div class="tl-dot g"></div></div><div class="tl-body">小屋晚餐，確認翌日天氣・路況，整理攻頂裝備，早睡</div></li>
+      </ul>
+      <div class="box-warn">⚠️ D2 體力消耗大，抵剣山荘後不要繼續活動。向小屋工作人員確認「カニのたてばい/よこばい」鎖場當日狀況</div>
+    </div></div>
+  </div>
+
+  <!-- D3 -->
+  <div class="day-card" onclick="toggleDay(this)">
+    <div class="day-hd">
+      <div class="day-badge d-summit">D3 ★</div>
+      <div class="day-meta">
+        <div class="day-title">剱岳攻頂 → 下山雷鳥平 <span class="star-tag">★ 核心日</span></div>
+        <div class="day-sub">住：雷鳥荘溫泉旅館（2,279m）｜ 全天約 11h</div>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="tl">
+        <li class="tl-row"><span class="tl-time">03:30</span><div class="tl-mk"><div class="tl-dot r"></div><div class="tl-line"></div></div><div class="tl-body">起床，行動糧早餐（或前晚訂便當）</div></li>
+        <li class="tl-row"><span class="tl-time">04:00</span><div class="tl-mk"><div class="tl-dot r"></div><div class="tl-line"></div></div><div class="tl-body">頭燈出發：剣山荘 → 一服劔 → 前劔<div class="tl-note">清晨出發避開午後雷雨；天亮後進入岩稜段視野最佳</div></div></li>
+        <li class="tl-row"><span class="tl-time">06:00</span><div class="tl-mk"><div class="tl-dot r"></div><div class="tl-line"></div></div><div class="tl-body">核心鎖場：平蔵の頭 → カニのたてばい（蟹的垂爬）<div class="tl-note">垂直岩壁，面壁攀爬，頭盔必戴（小屋租¥500）</div></div></li>
+        <li class="tl-row"><span class="tl-time">07:30</span><div class="tl-mk"><div class="tl-dot r"></div><div class="tl-line"></div></div><div class="tl-body">🏔 剱岳頂上（2,999m）360° 展望！立山・槍・穂高一覽</div></li>
+        <li class="tl-row"><span class="tl-time">08:00</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">開始下撤：カニのよこばい（蟹的橫爬）→ 前劔 → 一服劔 → 剣山荘<div class="tl-note">下撤需確認每一步落腳點，不急不搶</div></div></li>
+        <li class="tl-row"><span class="tl-time">11:00</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">回到剣山荘，午餐休息（カレーライス ¥1,200）</div></li>
+        <li class="tl-row"><span class="tl-time">13:00</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">剣山荘 → 別山乗越 → 雷鳥坂 → 雷鳥平（約3h）<div class="tl-note">途經地獄谷硫磺煙霧景觀，16:00前抵雷鳥平為安全目標</div></div></li>
+        <li class="tl-row"><span class="tl-time">16:00</span><div class="tl-mk"><div class="tl-dot g"></div></div><div class="tl-body">雷鳥荘 Check-in，溫泉泡湯 ♨️，慶功晚餐</div></li>
+      </ul>
+      <div class="box-warn">⚠️ 天氣備案：若 11:00 前未能返回剣山荘，取消雷鳥平移動、就地連住剣山荘（需提前告知小屋）。D3 是全行程最高風險日，天氣優先於行程進度</div>
+    </div></div>
+  </div>
+
+  <!-- D4 -->
+  <div class="day-card" onclick="toggleDay(this)">
+    <div class="day-hd">
+      <div class="day-badge d-cross">D4</div>
+      <div class="day-meta">
+        <div class="day-title">室堂 → 立山站 → 白川鄉合掌村</div>
+        <div class="day-sub">住：合掌村民宿（1泊2食）</div>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="tl">
+        <li class="tl-row"><span class="tl-time">07:00</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">雷鳥平 → 室堂（步行30分）→ 高原巴士 → 美女平 → 纜車 → 立山站<div class="tl-note">纜車往立山站 07:40 首班，搭早班人少</div></div></li>
+        <li class="tl-row"><span class="tl-time">09:30</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">立山站抵達，搭富山地鐵至電鐵富山（約65分）</div></li>
+        <li class="tl-row"><span class="tl-time">11:30</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">富山站轉乘高速巴士至白川鄉（約1h20m）<div class="tl-note">濃飛巴士，富山→白川鄉，約每小時一班，¥2,500</div></div></li>
+        <li class="tl-row"><span class="tl-time">13:00</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">抵達白川鄉荻町，漫步合掌村<div class="tl-note">和田家・長瀬家等合掌屋內部參觀，展望台俯瞰全景</div></div></li>
+        <li class="tl-row"><span class="tl-time">15:30</span><div class="tl-mk"><div class="tl-dot g"></div></div><div class="tl-body">民宿 Check-in（住合掌村內），夕暮れ景色・農村散策</div></li>
+        <li class="tl-row"><span class="tl-time">17:30</span><div class="tl-mk"><div class="tl-dot g"></div></div><div class="tl-body">民宿晚餐（飛驒牛・岩魚等地方料理），10月前後有夜間點燈活動</div></li>
+      </ul>
+      <div class="box-info">合掌村9月是旺季前的淡季尾聲，人潮比10月楓葉季少。清晨薄霧景色是最美時刻，建議 06:30 起早散步</div>
+    </div></div>
+  </div>
+
+  <!-- D5 -->
+  <div class="day-card" onclick="toggleDay(this)">
+    <div class="day-hd">
+      <div class="day-badge d-village">D5</div>
+      <div class="day-meta">
+        <div class="day-title">合掌村 → 高山 → 名古屋</div>
+        <div class="day-sub">住：名古屋市區飯店（商務型）</div>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="tl">
+        <li class="tl-row"><span class="tl-time">06:30</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">清晨合掌村晨霧散步（最美時刻）</div></li>
+        <li class="tl-row"><span class="tl-time">09:00</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">旅館早餐後退房</div></li>
+        <li class="tl-row"><span class="tl-time">09:50</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">巴士至高山濃飛巴士中心（約55分）<div class="tl-note">白川鄉→高山 約¥2,300，直達無需轉車</div></div></li>
+        <li class="tl-row"><span class="tl-time">11:00</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">高山古街散策（三町筋・陣屋前朝市）、飛驒牛握壽司 🍣</div></li>
+        <li class="tl-row"><span class="tl-time">13:00</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">JR 特急ひだ → 名古屋（約2h10m）<div class="tl-note">特急ひだ，高山站→名古屋，¥5,610，指定席需提前購買</div></div></li>
+        <li class="tl-row"><span class="tl-time">15:30</span><div class="tl-mk"><div class="tl-dot g"></div></div><div class="tl-body">名古屋市區 Check-in，採購伴手禮（名古屋駅高島屋）</div></li>
+        <li class="tl-row"><span class="tl-time">晚間</span><div class="tl-mk"><div class="tl-dot g"></div></div><div class="tl-body">名古屋名物晚餐（味噌かつ・ひつまぶし・手羽先）</div></li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- D6 -->
+  <div class="day-card" onclick="toggleDay(this)">
+    <div class="day-hd">
+      <div class="day-badge d-fly">D6</div>
+      <div class="day-meta">
+        <div class="day-title">名古屋 → 桃園 返台</div>
+        <div class="day-sub">IT207 NGO 13:45 → TPE 15:55（週二・六）</div>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="tl">
+        <li class="tl-row"><span class="tl-time">上午</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">名古屋市區自由活動（熱田神宮、覺王山、大須商店街）</div></li>
+        <li class="tl-row"><span class="tl-time">11:30</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">名鐵名古屋站搭名鐵至中部機場（28分，¥870）<div class="tl-note">12:00 前抵機場，辦理 IT207 報到</div></div></li>
+        <li class="tl-row"><span class="tl-time">13:45</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">IT207 NGO 出發</div></li>
+        <li class="tl-row"><span class="tl-time">15:55</span><div class="tl-mk"><div class="tl-dot g"></div></div><div class="tl-body">抵達桃園 TPE，出關後可搭 17:28 高鐵 21:17 抵高雄 ✓</div></li>
+      </ul>
+      <div class="box-info">週一出發（IT206）→ 週六回程（IT207）是本行程最佳組合，IT207 週二・六飛，週六班 15:55 抵桃園，當天可搭高鐵南下</div>
+    </div></div>
+  </div>
+</section>
+
+<!-- ══════════════════ 登山路線 ══════════════════ -->
+<section id="hiking" class="sec">
+  <div class="sec-head"><h2>山域登山路線詳解</h2><p>D2–D3 詳細路線・爬升資料・鎖場位置</p></div>
+
+  <!-- 地形圖 -->
+  <div class="map-section">
+    <iframe class="map-iframe"
+      src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY&origin=36.5665972,137.6628943&destination=36.623512,137.617444&waypoints=36.577079,137.5948|36.577079,137.5948&mode=walking&maptype=terrain"
+      style="height:420px"
+      title="立山・剱岳 登山路線地形圖（Google Maps）"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      allowfullscreen>
+    </iframe>
+    <div class="map-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#1D9E75"></div>黑部水壩（1,470m）</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#0F6E56"></div>室堂（2,450m）</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#1a5fa0"></div>雄山（3,003m）</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#9a6c1a"></div>別山乗越（2,750m）</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#c0442a"></div>剱岳（2,999m）</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#6a3a80"></div>雷鳥平（2,279m）</div>
+    </div>
+  </div>
+
+  <!-- 高度剖面圖 -->
+  <div class="elev-wrap">
+    <div class="elev-title">高度剖面圖 ｜ D2（青）+ D3（橘）</div>
+    <div class="elev-svg-wrap">
+    <svg viewBox="0 0 760 220" width="760" height="220">
+      <defs>
+        <linearGradient id="gd2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1D9E75" stop-opacity=".25"/><stop offset="100%" stop-color="#1D9E75" stop-opacity="0"/></linearGradient>
+        <linearGradient id="gd3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c0442a" stop-opacity=".2"/><stop offset="100%" stop-color="#c0442a" stop-opacity="0"/></linearGradient>
+      </defs>
+      <!-- grid -->
+      <line x1="50" y1="20" x2="50" y2="180" stroke="#e0dbd4" stroke-width=".5"/>
+      <line x1="50" y1="20" x2="740" y2="20" stroke="#e0dbd4" stroke-width=".5"/>
+      <line x1="50" y1="60" x2="740" y2="60" stroke="#e0dbd4" stroke-width=".5"/>
+      <line x1="50" y1="100" x2="740" y2="100" stroke="#e0dbd4" stroke-width=".5"/>
+      <line x1="50" y1="140" x2="740" y2="140" stroke="#e0dbd4" stroke-width=".5"/>
+      <line x1="50" y1="180" x2="740" y2="180" stroke="#e0dbd4" stroke-width=".5"/>
+      <!-- Y labels -->
+      <text x="44" y="23" font-size="10" fill="#8a8078" text-anchor="end">3100m</text>
+      <text x="44" y="63" font-size="10" fill="#8a8078" text-anchor="end">2900m</text>
+      <text x="44" y="103" font-size="10" fill="#8a8078" text-anchor="end">2700m</text>
+      <text x="44" y="143" font-size="10" fill="#8a8078" text-anchor="end">2500m</text>
+      <text x="44" y="183" font-size="10" fill="#8a8078" text-anchor="end">2300m</text>
+
+      <!-- D2 path: 扇澤1470→室堂2450→一ノ越2700→雄山3003→大汝山3015→真砂岳2861→別山乗越2750→剣山荘2520 -->
+      <!-- scale: 3100m=20px, 2300m=180px → 1m = 160/800px = 0.2px ; y = 180 - (elev-2300)*0.2 -->
+      <!-- x from 60 to 460 for D2 (8 points) -->
+      <polygon fill="url(#gd2)" points="
+        60,180
+        60,150
+        110,150
+        145,110
+        170,25
+        195,23
+        240,59
+        290,80
+        360,150
+        360,180"/>
+      <polyline fill="none" stroke="#1D9E75" stroke-width="2" stroke-linejoin="round" points="
+        60,150
+        110,150
+        145,110
+        170,25
+        195,23
+        240,59
+        290,80
+        360,150"/>
+      <!-- D3 path: 剣山荘2520→前劔2813→剱岳2999→剣山荘2520→別山乗越2750→雷鳥平2279 -->
+      <!-- x from 380 to 740 -->
+      <polygon fill="url(#gd3)" points="
+        380,150
+        420,48
+        480,23
+        540,150
+        590,80
+        680,180
+        740,180
+        380,180"/>
+      <polyline fill="none" stroke="#c0442a" stroke-width="2" stroke-linejoin="round" points="
+        380,150
+        420,48
+        480,23
+        540,150
+        590,80
+        680,180
+        740,182"/>
+
+      <!-- D2 waypoint labels -->
+      <circle cx="60" cy="150" r="3" fill="#1D9E75"/>
+      <text x="60" y="168" font-size="9" fill="#1D9E75" text-anchor="middle">室堂</text>
+      <text x="60" y="177" font-size="8" fill="#8a8078" text-anchor="middle">2,450m</text>
+      <circle cx="170" cy="25" r="3" fill="#1D9E75"/>
+      <text x="170" y="43" font-size="9" fill="#1D9E75" text-anchor="middle">雄山</text>
+      <text x="170" y="52" font-size="8" fill="#8a8078" text-anchor="middle">3,003m</text>
+      <circle cx="240" cy="59" r="3" fill="#1D9E75"/>
+      <text x="240" y="47" font-size="9" fill="#1D9E75" text-anchor="middle">別山乗越</text>
+      <text x="240" y="56" font-size="8" fill="#8a8078" text-anchor="middle">2,750m</text>
+      <circle cx="360" cy="150" r="3" fill="#1D9E75"/>
+      <text x="360" y="168" font-size="9" fill="#1D9E75" text-anchor="middle">剣山荘</text>
+      <text x="360" y="177" font-size="8" fill="#8a8078" text-anchor="middle">2,520m</text>
+
+      <!-- D3 waypoint labels -->
+      <circle cx="480" cy="23" r="4" fill="#c0442a"/>
+      <text x="480" y="14" font-size="9" fill="#c0442a" text-anchor="middle" font-weight="bold">剱岳</text>
+      <text x="480" y="12" font-size="0" fill="#c0442a">.</text>
+      <text x="480" y="9" font-size="8" fill="#8a8078" text-anchor="middle">2,999m</text>
+      <circle cx="590" cy="80" r="3" fill="#c0442a"/>
+      <text x="590" y="70" font-size="9" fill="#c0442a" text-anchor="middle">別山乗越</text>
+      <circle cx="740" cy="182" r="3" fill="#c0442a"/>
+      <text x="740" y="198" font-size="9" fill="#c0442a" text-anchor="middle">雷鳥平</text>
+      <text x="740" y="207" font-size="8" fill="#8a8078" text-anchor="middle">2,279m</text>
+
+      <!-- legend -->
+      <rect x="60" y="195" width="12" height="3" fill="#1D9E75" rx="1"/>
+      <text x="76" y="200" font-size="10" fill="#4a4540">D2 立山三山縱走</text>
+      <rect x="200" y="195" width="12" height="3" fill="#c0442a" rx="1"/>
+      <text x="216" y="200" font-size="10" fill="#4a4540">D3 剱岳攻頂</text>
+    </svg>
+    </div>
+  </div>
+
+  <!-- D2 路線詳解 -->
+  <div class="hike-section">
+    <h4>D2 — 室堂入山・立山三山縱走→剣山荘（約7h，爬升+850m）</h4>
+    <div class="waypoints">
+      <div class="wp"><div class="wp-dot" style="background:#1D9E75"></div><span class="wp-name">室堂平（出發點）</span><span class="wp-elev">2,450m</span><span class="wp-time">10:00</span></div>
+      <div class="wp"><div class="wp-dot" style="background:#2a8060"></div><span class="wp-name">一ノ越山荘</span><span class="wp-elev">2,700m</span><span class="wp-time">+1h</span></div>
+      <div class="wp"><div class="wp-dot" style="background:#1a5fa0"></div><span class="wp-name">雄山（立山神社）</span><span class="wp-elev">3,003m ⛩</span><span class="wp-time">+1.5h</span></div>
+      <div class="wp"><div class="wp-dot" style="background:#1a5fa0"></div><span class="wp-name">大汝山（立山最高峰）</span><span class="wp-elev">3,015m</span><span class="wp-time">+0.5h</span></div>
+      <div class="wp"><div class="wp-dot" style="background:#1a5fa0"></div><span class="wp-name">富士ノ折立</span><span class="wp-elev">2,999m</span><span class="wp-time">+0.3h</span></div>
+      <div class="wp"><div class="wp-dot" style="background:#2a5080"></div><span class="wp-name">真砂岳</span><span class="wp-elev">2,861m</span><span class="wp-time">+0.5h</span></div>
+      <div class="wp"><div class="wp-dot" style="background:#9a6c1a"></div><span class="wp-name">別山乗越（剱御前小屋）⬅ 展望絕佳</span><span class="wp-elev">2,750m</span><span class="wp-time">+1h</span></div>
+      <div class="wp"><div class="wp-dot" style="background:#c0442a"></div><span class="wp-name">剣山荘（宿泊）</span><span class="wp-elev">2,520m</span><span class="wp-time">+0.7h ≈15:30</span></div>
+    </div>
+  </div>
+
+  <!-- D3 路線詳解 -->
+  <div class="hike-section" style="margin-top:20px">
+    <h4>D3 — 剱岳攻頂・別山尾根（來回約7h，+480m）＋ 雷鳥平（+3h）</h4>
+    <div class="waypoints">
+      <div class="wp"><div class="wp-dot" style="background:#c0442a"></div><span class="wp-name">剣山荘（出發）</span><span class="wp-elev">2,520m</span><span class="wp-time">04:00</span></div>
+      <div class="wp"><div class="wp-dot" style="background:#d06030"></div><span class="wp-name">一服劔</span><span class="wp-elev">2,618m</span><span class="wp-time">+0.5h</span></div>
+      <div class="wp"><div class="wp-dot" style="background:#d06030"></div><span class="wp-name">前劔</span><span class="wp-elev">2,813m</span><span class="wp-time">+1h</span></div>
+      <div class="wp"><div class="wp-dot" style="background:#b03020"></div><span class="wp-name">平蔵ノ頭（技術鎖場開始）⚠</span><span class="wp-elev">2,830m</span><span class="wp-time">+0.5h</span></div>
+      <div class="wp"><div class="wp-dot" style="background:#a02010"></div><span class="wp-name">カニのたてばい 🦀 垂直岩壁攀登</span><span class="wp-elev">2,900m</span><span class="wp-time">+0.5h</span></div>
+      <div class="wp"><div class="wp-dot" style="background:#800000"></div><span class="wp-name">★ 剱岳頂上 360°展望</span><span class="wp-elev">2,999m</span><span class="wp-time">≈07:30</span></div>
+      <div class="wp"><div class="wp-dot" style="background:#a02010"></div><span class="wp-name">カニのよこばい 🦀 橫向岩壁下降</span><span class="wp-elev">2,900m</span><span class="wp-time">下撤開始</span></div>
+      <div class="wp"><div class="wp-dot" style="background:#c0442a"></div><span class="wp-name">剣山荘（返回・午休）</span><span class="wp-elev">2,520m</span><span class="wp-time">≈11:00</span></div>
+      <div class="wp"><div class="wp-dot" style="background:#9a6c1a"></div><span class="wp-name">別山乗越（剱御前小屋）</span><span class="wp-elev">2,750m</span><span class="wp-time">≈13:30</span></div>
+      <div class="wp"><div class="wp-dot" style="background:#6a3a80"></div><span class="wp-name">雷鳥坂・地獄谷経由</span><span class="wp-elev">— ↓</span><span class="wp-time"></span></div>
+      <div class="wp"><div class="wp-dot" style="background:#6a3a80"></div><span class="wp-name">雷鳥平（雷鳥荘・宿泊 ♨️）</span><span class="wp-elev">2,279m</span><span class="wp-time">≈16:00</span></div>
+    </div>
+    <div class="box-warn" style="margin-top:12px">🦀 鎖場注意：カニのたてばいは垂直岩壁、面壁攀爬，確認三點接觸再移動。カニのよこばいは下撤橫移，腳先找落點不看下方。兩處濕滑時難度倍增，霧雨預報當日不出發</div>
+  </div>
+</section>
+
+<!-- ══════════════════ 機票 ══════════════════ -->
+<section id="flights" class="sec">
+  <div class="sec-head"><h2>2026年機票方案</h2><p>虎航 2026夏季航班（3/29–10/24）已開賣</p></div>
+
+  <div class="flight-note-box">
+    ⚠️ <strong>2026年時刻說明</strong>：虎航 2026夏季航班已於 2025年12月起分批開賣，TPE–NGO（IT206）與 NGO–TPE（IT207）為固定航班。以下時刻以虎航官方公告（2025夏季延續時刻）為準，<strong>實際購票前請至 tigerairtw.com 確認最新時刻與班期</strong>，班期可能因季節調整有微幅異動。
+  </div>
+
+  <div class="flight-header">
+    <h3>✈ 去程：桃園 TPE → 名古屋 NGO</h3>
+    <p>建議出發日：2026年9月14日（週一）</p>
+  </div>
+
+  <div class="flight-cards">
+    <div class="flight-card rec">
+      <div class="flight-rec-bar">★ 最推薦 — 最適行程節奏</div>
+      <div class="flight-body">
+        <div class="flight-top">
+          <div><div class="airline-name">台灣虎航 Tigerair Taiwan</div><div class="airline-code">IT206 ｜ TPE → NGO</div></div>
+          <div><div class="price-big">~NT$5,500</div><div class="price-note">單程含稅（9月中參考價）</div></div>
+        </div>
+        <div class="route-vis">
+          <div class="airport-blk"><div class="airport-code">TPE</div><div class="airport-time">09:00</div><div class="airport-name">桃園 T1</div></div>
+          <div class="flight-line-wrap"><div class="flight-line"></div><div class="flight-duration">約 2h 55m</div></div>
+          <div class="airport-blk"><div class="airport-code">NGO</div><div class="airport-time">12:55</div><div class="airport-name">名古屋中部</div></div>
+        </div>
+        <div class="flight-tags">
+          <span class="f-tag f-tag-good">✓ 12:55抵達 當天可達信濃大町</span>
+          <span class="f-tag f-tag-neutral">週一二三五六飛</span>
+          <span class="f-tag f-tag-neutral">A320</span>
+        </div>
+        <div class="flight-detail">抵達後：名鐵→名古屋站（28min）→特急しなの→松本（2h）→大糸線→信濃大町（35min）→巴士→大町溫泉鄉，約18:00抵達旅館。全程交通含餐飯時間約5h。</div>
+      </div>
+    </div>
+
+    <div class="flight-card">
+      <div class="flight-body">
+        <div class="flight-top">
+          <div><div class="airline-name">樂桃航空 Peach Aviation</div><div class="airline-code">MM722 ｜ TPE → NGO</div></div>
+          <div><div class="price-big">~NT$4,800</div><div class="price-note">單程含稅（早鳥）</div></div>
+        </div>
+        <div class="route-vis">
+          <div class="airport-blk"><div class="airport-code">TPE</div><div class="airport-time">02:40</div><div class="airport-name">桃園 T1</div></div>
+          <div class="flight-line-wrap"><div class="flight-line"></div><div class="flight-duration">約 2h 55m</div></div>
+          <div class="airport-blk"><div class="airport-code">NGO</div><div class="airport-time">06:30</div><div class="airport-name">名古屋中部</div></div>
+        </div>
+        <div class="flight-tags">
+          <span class="f-tag f-tag-warn">⚠ 深夜班 02:40出發</span>
+          <span class="f-tag f-tag-neutral">每日</span>
+          <span class="f-tag f-tag-good">票價較便宜</span>
+        </div>
+        <div class="flight-detail">深夜班需在機場過夜或搭紅眼，出發前晚需在桃園附近住宿或候機室等待。06:30抵名古屋，比IT206早，可更早抵信濃大町。適合不介意睡眠品質的旅伴。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flight-header">
+    <h3>✈ 回程：名古屋 NGO → 桃園 TPE</h3>
+    <p>建議回程日：2026年9月19日（週六）</p>
+  </div>
+
+  <div class="flight-cards">
+    <div class="flight-card rec">
+      <div class="flight-rec-bar">★ 最推薦 — 週六班完美收尾</div>
+      <div class="flight-body">
+        <div class="flight-top">
+          <div><div class="airline-name">台灣虎航 Tigerair Taiwan</div><div class="airline-code">IT207 ｜ NGO → TPE</div></div>
+          <div><div class="price-big">~NT$5,500</div><div class="price-note">單程含稅</div></div>
+        </div>
+        <div class="route-vis">
+          <div class="airport-blk"><div class="airport-code">NGO</div><div class="airport-time">13:45</div><div class="airport-name">名古屋中部</div></div>
+          <div class="flight-line-wrap"><div class="flight-line"></div><div class="flight-duration">約 2h 10m</div></div>
+          <div class="airport-blk"><div class="airport-code">TPE</div><div class="airport-time">15:55</div><div class="airport-name">桃園 T1</div></div>
+        </div>
+        <div class="flight-tags">
+          <span class="f-tag f-tag-good">✓ 15:55抵桃園 可搭高鐵回南部</span>
+          <span class="f-tag f-tag-neutral">週二・六飛</span>
+        </div>
+        <div class="flight-detail">D5 搭名鐵 11:30 離名古屋市區，12:00前抵機場辦理報到，時間充裕。15:55桃園落地，搭17:28高鐵可21:17抵高雄左營。週一出發配週六回程，完整請6天假即可。</div>
+      </div>
+    </div>
+
+    <div class="flight-card">
+      <div class="flight-body">
+        <div class="flight-top">
+          <div><div class="airline-name">台灣虎航（備選）</div><div class="airline-code">IT209 ｜ NGO → TPE（週五班）</div></div>
+          <div><div class="price-big">~NT$5,200</div><div class="price-note">單程含稅</div></div>
+        </div>
+        <div class="route-vis">
+          <div class="airport-blk"><div class="airport-code">NGO</div><div class="airport-time">21:45</div><div class="airport-name">名古屋中部</div></div>
+          <div class="flight-line-wrap"><div class="flight-line"></div><div class="flight-duration">約 2h 10m</div></div>
+          <div class="airport-blk"><div class="airport-code">TPE</div><div class="airport-time">23:55</div><div class="airport-name">桃園 T1</div></div>
+        </div>
+        <div class="flight-tags">
+          <span class="f-tag f-tag-warn">⚠ 深夜班 23:55抵達</span>
+          <span class="f-tag f-tag-neutral">週五飛</span>
+          <span class="f-tag f-tag-good">多出一天遊高山</span>
+        </div>
+        <div class="flight-detail">若週五回，D5整天可盡情遊高山或名古屋。23:55抵桃園無高鐵，需在機場附近住宿或等隔天早班高鐵。適合不趕回南部的旅伴。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="strategy-box">
+    <h3>✈ 最佳組合與預算試算</h3>
+    <ul>
+      <li><strong>最推薦</strong>：IT206（週一去）+ IT207（週六回）= 約NT$11,000 雙向，請假D1~D6剛好6天</li>
+      <li><strong>最省</strong>：MM722（深夜去）+ IT207（週六回）= 約NT$10,300，但去程需機場候機</li>
+      <li>9月中旬虎航旺季，早鳥（4–5個月前）可省 NT$2,000–3,000；建議4月底前購票</li>
+      <li>購票平台：直接上 tigerairtw.com 最便宜，Skyscanner 可比較但LCC通常不顯示最低價</li>
+      <li>行李策略：登山裝備用登山包 carry-on（10kg），城市衣物先宅配至名古屋飯店，節省托運費</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══════════════════ 預算 ══════════════════ -->
+<section id="budget" class="sec">
+  <div class="sec-head"><h2>6天預算規劃表</h2><p>單人估算 ｜ 1 JPY ≈ 0.21 NTD（2026年參考）</p></div>
+
+  <div class="budget-stats">
+    <div class="bstat"><div class="bstat-label">行程費（不含機票）</div><div class="bstat-val">~30,400</div><div class="bstat-sub">NTD 單人</div></div>
+    <div class="bstat"><div class="bstat-label">機票（虎航來回）</div><div class="bstat-val">~11,000</div><div class="bstat-sub">NTD 單人</div></div>
+    <div class="bstat"><div class="bstat-label">總計</div><div class="bstat-val">~41,400</div><div class="bstat-sub">NTD 單人</div></div>
+    <div class="bstat"><div class="bstat-label">山中住宿天數</div><div class="bstat-val">3晚</div><div class="bstat-sub">剣山荘・雷鳥荘・合掌民宿</div></div>
+  </div>
+
+  <div class="btable-wrap">
+    <div class="btable-title">🚃 交通費</div>
+    <table class="btable">
+      <thead><tr><th>項目</th><th>JPY</th><th>NTD</th></tr></thead>
+      <tbody>
+        <tr><td>名鐵中部機場→名古屋站</td><td>¥870</td><td>~180</td></tr>
+        <tr><td>特急しなの 名古屋→松本（指定席）</td><td>¥6,670</td><td>~1,400</td></tr>
+        <tr><td>JR大糸線 松本→信濃大町</td><td>¥990</td><td>~210</td></tr>
+        <tr><td>信濃大町→大町溫泉鄉巴士</td><td>¥340</td><td>~70</td></tr>
+        <tr><td>大町→扇澤巴士</td><td>¥1,360</td><td>~290</td></tr>
+        <tr><td>立山黑部阿爾卑斯路線（扇澤→室堂）</td><td>¥9,840</td><td>~2,070</td></tr>
+        <tr><td>立山纜車+高原巴士（室堂→立山站，D4）</td><td>¥3,200</td><td>~670</td></tr>
+        <tr><td>富山地鐵→電鐵富山</td><td>¥200</td><td>~40</td></tr>
+        <tr><td>富山高速巴士→白川鄉</td><td>¥2,500</td><td>~525</td></tr>
+        <tr><td>白川鄉→高山巴士</td><td>¥2,300</td><td>~480</td></tr>
+        <tr><td>特急ひだ 高山→名古屋（指定席）</td><td>¥5,610</td><td>~1,180</td></tr>
+        <tr><td>市區零散交通</td><td>¥2,000</td><td>~420</td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="2">交通小計</td><td>~7,535 NTD</td></tr></tfoot>
+    </table>
+  </div>
+
+  <div class="btable-wrap">
+    <div class="btable-title">🏨 住宿費（部分含餐）</div>
+    <table class="btable">
+      <thead><tr><th>住宿</th><th>JPY</th><th>NTD</th></tr></thead>
+      <tbody>
+        <tr><td>大町溫泉鄉旅館（D1，1泊2食）</td><td>¥12,000</td><td>~2,520</td></tr>
+        <tr><td>剣山荘（D2，1泊2食）</td><td>¥17,000</td><td>~3,570</td></tr>
+        <tr><td>雷鳥荘（D3，1泊2食）</td><td>¥16,000</td><td>~3,360</td></tr>
+        <tr><td>合掌村民宿（D4，1泊2食）</td><td>¥16,000</td><td>~3,360</td></tr>
+        <tr><td>名古屋商務飯店（D5，1泊）</td><td>¥8,000</td><td>~1,680</td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="2">住宿小計</td><td>~14,490 NTD</td></tr></tfoot>
+    </table>
+  </div>
+
+  <div class="btable-wrap">
+    <div class="btable-title">🍜 餐食・雜費</div>
+    <table class="btable">
+      <thead><tr><th>項目</th><th>JPY</th><th>NTD</th></tr></thead>
+      <tbody>
+        <tr><td>行動糧（出發前採購）</td><td>¥3,000</td><td>~630</td></tr>
+        <tr><td>山中午餐・小屋飲料</td><td>¥5,000</td><td>~1,050</td></tr>
+        <tr><td>市區餐食（名古屋2餐＋高山）</td><td>¥5,000</td><td>~1,050</td></tr>
+        <tr><td>頭盔租借（剣山荘）</td><td>¥500</td><td>~105</td></tr>
+        <tr><td>合掌屋入館費・展望台</td><td>¥1,000</td><td>~210</td></tr>
+        <tr><td>登山保險（台灣）</td><td>—</td><td>~1,200</td></tr>
+        <tr><td>行李宅配（信濃大町→名古屋）</td><td>¥1,500</td><td>~315</td></tr>
+        <tr><td>eSIM（7天日本）</td><td>—</td><td>~350</td></tr>
+        <tr><td>伴手禮・雜支</td><td>—</td><td>~3,000</td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="2">餐食雜費小計</td><td>~7,910 NTD</td></tr></tfoot>
+    </table>
+  </div>
+
+  <div class="total-band">
+    <p>TOTAL BUDGET (PER PERSON)</p>
+    <div class="total-big">NT$ 41,400</div>
+    <div class="total-sub">含來回虎航機票 ~NT$11,000 ｜ 不含機票 ~NT$30,400</div>
+  </div>
+</section>
+
+<!-- ══════════════════ 預訂清單 ══════════════════ -->
+<section id="booking" class="sec">
+  <div class="sec-head"><h2>預訂清單</h2><p>依優先度排序 ｜ 錯過窗口即無法確保</p></div>
+  <div class="booking-list">
+
+    <div class="booking-item">
+      <div class="bk-bar bk-red"></div>
+      <div style="flex:1">
+        <div class="bk-title">✈ 機票（IT206 去 + IT207 回）</div>
+        <div class="bk-meta">tigerairtw.com 直接購買。9月中旬票建議4月底前下訂，9月是旺季早鳥差距約NT$2,000。確認班期：IT206週一二三五六、IT207週二六</div>
+      </div>
+      <div class="bk-when bk-now">現在購買</div>
+    </div>
+
+    <div class="booking-item">
+      <div class="bk-bar bk-red"></div>
+      <div style="flex:1">
+        <div class="bk-title">🏔 剣山荘（D2，1晚）</div>
+        <div class="bk-meta">やまたんネット：yamatan.net/hut/kenzanso ｜ 電話：090-2372-5799<br>費用：約¥17,000/泊2食 ｜ ⚠️ 9月旺季週末滿房快，電話預約需匯訂金¥3,000/人</div>
+      </div>
+      <div class="bk-when bk-now">5–6月立刻訂</div>
+    </div>
+
+    <div class="booking-item">
+      <div class="bk-bar bk-red"></div>
+      <div style="flex:1">
+        <div class="bk-title">♨️ 雷鳥荘（D3，1晚）</div>
+        <div class="bk-meta">電話：076-463-1445 ｜ 費用：約¥16,000/泊2食<br>室堂高地山小屋，9月旺季建議5月前預約</div>
+      </div>
+      <div class="bk-when bk-now">5–6月訂</div>
+    </div>
+
+    <div class="booking-item">
+      <div class="bk-bar bk-amber"></div>
+      <div style="flex:1">
+        <div class="bk-title">🏡 合掌村民宿（D4，1晚）</div>
+        <div class="bk-meta">推薦：白川鄉觀光協會官網（shirakawa-go.gr.jp）或 じゃらん 搜「白川郷」<br>費用：約¥15,000–18,000/泊2食 ｜ 避開10月楓葉旺季後9月尚有空房</div>
+      </div>
+      <div class="bk-when bk-soon">6–7月</div>
+    </div>
+
+    <div class="booking-item">
+      <div class="bk-bar bk-amber"></div>
+      <div style="flex:1">
+        <div class="bk-title">🌡 大町溫泉鄉旅館（D1，1晚）</div>
+        <div class="bk-meta">じゃらん・楽天トラベル 搜「大町温泉郷」｜費用約¥10,000–13,000/泊2食<br>推薦：黒部観光ホテル、山賊荘等</div>
+      </div>
+      <div class="bk-when bk-soon">6–7月</div>
+    </div>
+
+    <div class="booking-item">
+      <div class="bk-bar bk-amber"></div>
+      <div style="flex:1">
+        <div class="bk-title">🚃 立山黑部阿爾卑斯路線交通票</div>
+        <div class="bk-meta">官網：alpen-route.com ｜ 費用：¥9,840（扇澤→室堂單程）<br>9月票不必搶，但建議7月前購買確保日期。購票後需現場換實體乘車券</div>
+      </div>
+      <div class="bk-when bk-soon">7月</div>
+    </div>
+
+    <div class="booking-item">
+      <div class="bk-bar bk-teal"></div>
+      <div style="flex:1">
+        <div class="bk-title">📋 登山計畫書提交（登山届）</div>
+        <div class="bk-meta">日本コンパス（Japan Compass）線上免費提交。填寫行程、緊急聯絡人、裝備。剱岳為強制提交路線</div>
+      </div>
+      <div class="bk-when bk-ok">出發前1個月</div>
+    </div>
+
+    <div class="booking-item">
+      <div class="bk-bar bk-teal"></div>
+      <div style="flex:1">
+        <div class="bk-title">🛡 登山保險</div>
+        <div class="bk-meta">台灣：OK保險、富邦、南山山岳險。強烈建議含直升機救援（一次救援費用數十萬日幣）。7天方案約NT$1,000–1,500</div>
+      </div>
+      <div class="bk-when bk-ok">出發前2週</div>
+    </div>
+
+    <div class="booking-item">
+      <div class="bk-bar bk-teal"></div>
+      <div style="flex:1">
+        <div class="bk-title">🌤 天氣確認</div>
+        <div class="bk-meta">tenki.jp「山の天気」搜「剱岳」可查3天精細山岳預報 ｜ app：YAMAP（離線地圖），山と高原地図 No.37</div>
+      </div>
+      <div class="bk-when bk-ok">出發前1週</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════ 裝備 ══════════════════ -->
+<section id="gear" class="sec">
+  <div class="sec-head"><h2>裝備清單</h2><p>針對剱岳岩稜鎖場特別考量 ｜ <span style="color:var(--coral);font-weight:600">紅字=必備</span></p></div>
+
+  <div class="gear-grid">
+    <div class="gear-card">
+      <div class="gear-head" style="border-left:3px solid var(--coral)">🪨 剱岳專用</div>
+      <div class="gear-items">
+        <div class="gear-item"><div class="gear-box"></div>頭盔<span class="req">★必備</span>（小屋租¥500 或自帶）</div>
+        <div class="gear-item"><div class="gear-box"></div>革製手套<span class="req">★必備</span>（防鎖場磨損）</div>
+        <div class="gear-item"><div class="gear-box"></div>頭燈+備用電池<span class="req">★必備</span>（04:00 夜間出發）</div>
+        <div class="gear-item"><div class="gear-box"></div>輕量冰爪（9月初可能有殘雪）</div>
+        <div class="gear-item"><div class="gear-box"></div>登山杖（岩稜段收折，下山段用）</div>
+      </div>
+    </div>
+    <div class="gear-card">
+      <div class="gear-head" style="border-left:3px solid var(--teal)">🧥 服裝（洋蔥式）</div>
+      <div class="gear-items">
+        <div class="gear-item"><div class="gear-box"></div>Gore-Tex 防水外套（全程必備）</div>
+        <div class="gear-item"><div class="gear-box"></div>化纖/羽絨中層保暖（100g+）</div>
+        <div class="gear-item"><div class="gear-box"></div>吸濕排汗長袖底層 ×2</div>
+        <div class="gear-item"><div class="gear-box"></div>快乾登山褲 ×2</div>
+        <div class="gear-item"><div class="gear-box"></div>防水登山鞋（已磨合，非新鞋）</div>
+        <div class="gear-item"><div class="gear-box"></div>保暖帽、太陽眼鏡、防曬</div>
+      </div>
+    </div>
+    <div class="gear-card">
+      <div class="gear-head" style="border-left:3px solid var(--amber)">🎒 行動糧・補水</div>
+      <div class="gear-items">
+        <div class="gear-item"><div class="gear-box"></div>行動糧（2日份：能量棒・堅果・羊羹）</div>
+        <div class="gear-item"><div class="gear-box"></div>水 2.5L<span class="req">★必備</span>（剱澤無水源）</div>
+        <div class="gear-item"><div class="gear-box"></div>電解質補給錠</div>
+        <div class="gear-item"><div class="gear-box"></div>保溫壺（清晨出發保熱飲）</div>
+      </div>
+    </div>
+    <div class="gear-card">
+      <div class="gear-head" style="border-left:3px solid var(--blue)">⛑ 安全・緊急</div>
+      <div class="gear-items">
+        <div class="gear-item"><div class="gear-box"></div>急救包（彈性繃帶・OK繃・消毒）</div>
+        <div class="gear-item"><div class="gear-box"></div>高山反應藥（丹木斯，需醫師處方）</div>
+        <div class="gear-item"><div class="gear-box"></div>緊急保溫毯（折疊式）</div>
+        <div class="gear-item"><div class="gear-box"></div>哨子</div>
+        <div class="gear-item"><div class="gear-box"></div>日本 au 系 eSIM（山中有訊號）</div>
+      </div>
+    </div>
+    <div class="gear-card">
+      <div class="gear-head" style="border-left:3px solid var(--muted)">🗺 導航・文件</div>
+      <div class="gear-items">
+        <div class="gear-item"><div class="gear-box"></div>山と高原地図 No.37 剱・立山（紙本）</div>
+        <div class="gear-item"><div class="gear-box"></div>YAMAP app（離線地圖）</div>
+        <div class="gear-item"><div class="gear-box"></div>登山計畫書副本（紙本）</div>
+        <div class="gear-item"><div class="gear-box"></div>保險證明・護照影本</div>
+        <div class="gear-item"><div class="gear-box"></div>山小屋預約確認截圖</div>
+      </div>
+    </div>
+    <div class="gear-card">
+      <div class="gear-head" style="border-left:3px solid var(--muted)">💡 雜項</div>
+      <div class="gear-items">
+        <div class="gear-item"><div class="gear-box"></div>行動電源 10,000mAh</div>
+        <div class="gear-item"><div class="gear-box"></div>防水袋套（整包外袋）</div>
+        <div class="gear-item"><div class="gear-box"></div>速乾毛巾</div>
+        <div class="gear-item"><div class="gear-box"></div>耳塞（山小屋大通鋪必備）</div>
+        <div class="gear-item"><div class="gear-box"></div>拖鞋（山小屋室內用）</div>
+        <div class="gear-item"><div class="gear-box"></div>現金 ¥40,000（山中無ATM）</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box-warn" style="margin-top:18px">⚠️ 鎖場安全提醒：カニのたてばい為垂直岩壁，必須面壁攀爬，三點接觸確認後再移動。カニのよこばい為橫向岩壁，腳先找落點，不要急看下方。兩處潮濕時摩擦力大幅下降，霧・雨・強風天不出發。頭盔和手套是實質安全裝備，不是形式。</div>
+</section>
+
+</div><!-- end main -->
+
+<footer style="background:#0d2a1f;color:#6aaa88;text-align:center;padding:22px 16px;font-size:12px">
+  <div style="font-family:'DM Serif Display',serif;font-size:17px;color:#a8ebd0;margin-bottom:4px">立山黑部・剱岳・白川鄉 2026</div>
+  行程規劃 v2.0（2026年版）｜ 出發前請確認最新山小屋費用、交通時刻及航班班期
+</footer>
+
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.sec').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+}
+function toggleDay(card) {
+  card.classList.toggle('open');
+}
+</script>
+</body>
+</html>
