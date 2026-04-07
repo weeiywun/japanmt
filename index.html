@@ -61,7 +61,7 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--paper);color:var(--i
 .day-hd:hover{background:var(--paper)}
 .day-badge{width:42px;height:42px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;letter-spacing:.5px;flex-shrink:0}
 .d-fly{background:var(--teal-bg);color:var(--teal)}
-.d-hike{background:#e8f4e8;color:#2a6a2a}
+.d-hike{background:var(--coral-bg);color:var(--coral)}
 .d-summit{background:var(--coral-bg);color:var(--coral)}
 .d-cross{background:var(--amber-bg);color:var(--amber)}
 .d-village{background:var(--blue-bg);color:var(--blue)}
@@ -282,6 +282,15 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--paper);color:var(--i
 /* ── SEC HEAD ACCENT ── */
 .sec-head{border-left:3px solid var(--teal);padding-left:14px}
 
+/* ── ITIN VERSION TOGGLE ── */
+.itin-toggle{display:flex;gap:0;margin-bottom:22px;border:1.5px solid var(--teal);border-radius:10px;overflow:hidden;width:fit-content}
+.itin-btn{padding:10px 26px;font-size:13px;font-weight:500;color:var(--teal);background:#fff;border:none;cursor:pointer;transition:all .18s;letter-spacing:.3px;line-height:1.4}
+.itin-btn:hover{background:var(--teal-bg)}
+.itin-btn.active{background:var(--teal);color:#fff}
+.itin-panel{display:none}.itin-panel.active{display:block}
+.itin-badge-b{display:inline-flex;align-items:center;gap:6px;background:var(--amber-bg);border:1px solid #e8c060;border-radius:8px;padding:4px 10px;font-size:11px;color:var(--amber);font-weight:600;margin-bottom:14px}
+@media(max-width:600px){.itin-toggle{width:100%}.itin-btn{flex:1;text-align:center;padding:10px 8px;font-size:12px}}
+
 /* ── DEP TOGGLE (TPE / KHH) ── */
 .dep-toggle{display:flex;gap:0;margin-bottom:20px;border:1.5px solid var(--teal);border-radius:10px;overflow:hidden;width:fit-content}
 .dep-btn{padding:10px 24px;font-size:13px;font-weight:500;color:var(--teal);background:#fff;border:none;cursor:pointer;transition:all .18s;letter-spacing:.3px}
@@ -346,12 +355,12 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--paper);color:var(--i
 
 <nav class="tabs-bar">
   <div class="tabs-inner">
-    <div class="tab-btn active" onclick="showTab('itinerary',this)">📅 行程規劃</div>
-    <div class="tab-btn" onclick="showTab('hiking',this)">🧗 登山路線</div>
-    <div class="tab-btn" onclick="showTab('flights',this)">✈ 機票方案</div>
-    <div class="tab-btn" onclick="showTab('budget',this)">💴 預算表</div>
-    <div class="tab-btn" onclick="showTab('booking',this)">📌 預訂清單</div>
-    <div class="tab-btn" onclick="showTab('gear',this)">🎒 裝備清單</div>
+    <div class="tab-btn active" onclick="showTab('itinerary',this)">行程規劃</div>
+    <div class="tab-btn" onclick="showTab('hiking',this)">登山路線</div>
+    <div class="tab-btn" onclick="showTab('flights',this)">機票方案</div>
+    <div class="tab-btn" onclick="showTab('budget',this)">預算表</div>
+    <div class="tab-btn" onclick="showTab('booking',this)">預訂清單</div>
+    <div class="tab-btn" onclick="showTab('gear',this)">裝備清單</div>
   </div>
 </nav>
 
@@ -360,6 +369,14 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--paper);color:var(--i
 <!-- ══════════════════ 行程規劃 ══════════════════ -->
 <section id="itinerary" class="sec active">
   <div class="sec-head"><h2>6天詳細行程</h2><p>週一出發最佳 ｜ 機票 IT206/IT207 完美配合</p></div>
+
+  <div class="itin-toggle">
+    <button class="itin-btn active" onclick="switchItin('a',this)">版本 A ── 原版行程</button>
+    <button class="itin-btn" onclick="switchItin('b',this)">版本 B ── KKday 套裝</button>
+  </div>
+
+  <!-- ══ 版本 A：原版行程 ══ -->
+  <div id="itin-a" class="itin-panel active">
 
   <div class="route-banner">
     <div class="route-banner-label">行程路線</div>
@@ -442,7 +459,7 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--paper);color:var(--i
   <!-- D4 -->
   <div class="day-card" onclick="toggleDay(this)">
     <div class="day-hd">
-      <div class="day-badge d-cross">D4</div>
+      <div class="day-badge d-fly">D4</div>
       <div class="day-meta">
         <div class="day-title">室堂 → 立山站 → 白川鄉合掌村</div>
         <div class="day-sub">住：合掌村民宿（1泊2食）</div>
@@ -465,7 +482,7 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--paper);color:var(--i
   <!-- D5 -->
   <div class="day-card" onclick="toggleDay(this)">
     <div class="day-hd">
-      <div class="day-badge d-village">D5</div>
+      <div class="day-badge d-fly">D5</div>
       <div class="day-meta">
         <div class="day-title">合掌村 → 高山 → 名古屋</div>
         <div class="day-sub">住：名古屋市區飯店（商務型）</div>
@@ -505,6 +522,158 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--paper);color:var(--i
       <div class="box-info">週一出發（IT206）→ 週六回程（IT207）是本行程最佳組合，IT207 週二・六飛，週六班 15:55 抵桃園，當天可搭高鐵南下</div>
     </div></div>
   </div>
+
+  </div><!-- /itin-a -->
+
+  <!-- ══ 版本 B：KKday 套裝行程 ══ -->
+  <div id="itin-b" class="itin-panel">
+
+  <div class="itin-badge-b">版本 B — KKday 套裝｜D4 直返名古屋，D5 名古屋出發白川鄉・飛驒高山一日遊</div>
+
+  <div class="route-banner">
+    <div class="route-banner-label">行程路線（版本 B）</div>
+    <div class="route-banner-text">
+      TPE<span class="route-arrow">→</span>NGO（IT206）<span class="route-arrow">→</span>信濃大町（D1）<span class="route-arrow">→</span>扇澤・室堂・立山三山（D2）<span class="route-arrow">→</span>剱岳 2,999m 攻頂（D3）<span class="route-arrow">→</span>富山・<b>名古屋</b>（D4）<span class="route-arrow">→</span><b>KKday 白川鄉・高山一日遊</b>（D5）<span class="route-arrow">→</span>NGO<span class="route-arrow">→</span>TPE（IT207）（D6）
+    </div>
+  </div>
+
+  <!-- B-D1：同版本A -->
+  <div class="day-card" onclick="toggleDay(this)">
+    <div class="day-hd">
+      <div class="day-badge d-fly">D1</div>
+      <div class="day-meta">
+        <div class="day-title">桃園 → 名古屋 → 信濃大町</div>
+        <div class="day-sub">IT206 TPE 09:00 → NGO 12:55 ｜ 住：大町溫泉鄉旅館（同版本A）</div>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="tl">
+        <li class="tl-row"><span class="tl-time">07:30</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">桃園機場 T1 報到（IT206 起飛前90分）</div></li>
+        <li class="tl-row"><span class="tl-time">09:00</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">IT206 TPE 出發<div class="tl-note">週一二三五六飛，飛行約2h55m</div></div></li>
+        <li class="tl-row"><span class="tl-time">12:55</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">抵達名古屋中部機場（NGO）<div class="tl-note">出關+取行李約45分，13:40前可離開機場</div></div></li>
+        <li class="tl-row"><span class="tl-time">13:50</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">名鐵至名古屋站（28分）→ 特急しなの → 松本（約2h）</div></li>
+        <li class="tl-row"><span class="tl-time">17:00</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">松本站換乘 JR 大糸線至信濃大町（35分）→ 巴士至大町溫泉鄉（13分）</div></li>
+        <li class="tl-row"><span class="tl-time">晚間</span><div class="tl-mk"><div class="tl-dot g"></div></div><div class="tl-body">旅館晚餐（含1泊2食），整理登山裝備</div></li>
+      </ul>
+      <div class="box-info">信濃大町有黑貓宅急便，可在此將不必要行李寄至名古屋飯店，山中輕裝上路</div>
+    </div></div>
+  </div>
+
+  <!-- B-D2：同版本A -->
+  <div class="day-card" onclick="toggleDay(this)">
+    <div class="day-hd">
+      <div class="day-badge d-hike">D2</div>
+      <div class="day-meta">
+        <div class="day-title">扇澤 → 橫斷 → 立山三山 → 剣山荘</div>
+        <div class="day-sub">住：剣山荘 2,520m ｜ 全天約 9–10h（含交通）（同版本A）</div>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="tl">
+        <li class="tl-row"><span class="tl-time">06:00</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">旅館早餐，搭巴士至扇澤（25分）</div></li>
+        <li class="tl-row"><span class="tl-time">07:30</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">扇澤出發，阿爾卑斯路線 6 段交通接力<div class="tl-note">關電隧道→黑部水壩→黑部湖→黑部平→大觀峰→室堂（約2.5h）</div></div></li>
+        <li class="tl-row"><span class="tl-time">10:00</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">室堂（2,450m）出發，立山三山縱走<div class="tl-note">室堂→一ノ越→雄山 3,003m（約2h30m）</div></div></li>
+        <li class="tl-row"><span class="tl-time">12:30</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">雄山→大汝山 3,015m→富士ノ折立→真砂岳→別山乗越</div></li>
+        <li class="tl-row"><span class="tl-time">15:30</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">別山乗越下降至剱澤 → 剣山荘 Check-in</div></li>
+        <li class="tl-row"><span class="tl-time">17:00</span><div class="tl-mk"><div class="tl-dot g"></div></div><div class="tl-body">小屋晚餐，整理攻頂裝備，早睡</div></li>
+      </ul>
+      <div class="box-warn">⚠️ D2 體力消耗大，抵剣山荘後不要繼續活動。向小屋確認「カニのたてばい/よこばい」鎖場當日狀況</div>
+    </div></div>
+  </div>
+
+  <!-- B-D3：同版本A -->
+  <div class="day-card" onclick="toggleDay(this)">
+    <div class="day-hd">
+      <div class="day-badge d-summit">D3 ★</div>
+      <div class="day-meta">
+        <div class="day-title">剱岳攻頂 → 下山雷鳥平 <span class="star-tag">★ 核心日</span></div>
+        <div class="day-sub">住：雷鳥荘溫泉旅館（2,279m）｜ 全天約 11h（同版本A）</div>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="tl">
+        <li class="tl-row"><span class="tl-time">04:00</span><div class="tl-mk"><div class="tl-dot r"></div><div class="tl-line"></div></div><div class="tl-body">頭燈出發：剣山荘 → 一服劔 → 前劔</div></li>
+        <li class="tl-row"><span class="tl-time">06:00</span><div class="tl-mk"><div class="tl-dot r"></div><div class="tl-line"></div></div><div class="tl-body">核心鎖場：平蔵の頭 → カニのたてばい（蟹的垂爬）</div></li>
+        <li class="tl-row"><span class="tl-time">07:30</span><div class="tl-mk"><div class="tl-dot r"></div><div class="tl-line"></div></div><div class="tl-body">剱岳頂上（2,999m）360° 展望</div></li>
+        <li class="tl-row"><span class="tl-time">08:00</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">下撤：カニのよこばい → 前劔 → 剣山荘（11:00 返抵）</div></li>
+        <li class="tl-row"><span class="tl-time">13:00</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">剣山荘 → 別山乗越 → 雷鳥坂 → 雷鳥平（約3h）</div></li>
+        <li class="tl-row"><span class="tl-time">16:00</span><div class="tl-mk"><div class="tl-dot g"></div></div><div class="tl-body">雷鳥荘 Check-in，溫泉泡湯，慶功晚餐</div></li>
+      </ul>
+    </div></div>
+  </div>
+
+  <!-- B-D4：直返名古屋 -->
+  <div class="day-card" onclick="toggleDay(this)">
+    <div class="day-hd">
+      <div class="day-badge d-fly">D4</div>
+      <div class="day-meta">
+        <div class="day-title">室堂 → 富山 → 名古屋</div>
+        <div class="day-sub">住：名古屋市區飯店 ｜ 版本B 直返名古屋，翌日參加套裝行程</div>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="tl">
+        <li class="tl-row"><span class="tl-time">07:00</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">雷鳥平 → 室堂（步行30分）→ 高原巴士 → 美女平 → 纜車 → 立山站<div class="tl-note">纜車往立山站 07:40 首班，搭早班人少</div></div></li>
+        <li class="tl-row"><span class="tl-time">09:30</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">立山站搭富山地方鐵道至電鐵富山（約65分）</div></li>
+        <li class="tl-row"><span class="tl-time">11:00</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">富山站搭高速巴士直達名古屋（約3h40m）<div class="tl-note">名鉄バス・濃飛バス，富山→名古屋，¥4,000～5,000，需提前預約</div></div></li>
+        <li class="tl-row"><span class="tl-time">15:00</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">抵名古屋 Check-in，整理行李（宅配行李已在此等候）</div></li>
+        <li class="tl-row"><span class="tl-time">晚間</span><div class="tl-mk"><div class="tl-dot g"></div></div><div class="tl-body">名古屋首夜：矢場とん味噌かつ、大須商店街散策，早睡為翌日套裝行程備體力</div></li>
+      </ul>
+      <div class="box-info">抵達名古屋後，至 KKday 台灣客服或官網確認翌日 D5 套裝行程出發細節（集合地點：名古屋站 JR 高島屋附近或指定位置）</div>
+    </div></div>
+  </div>
+
+  <!-- B-D5：KKday 套裝一日遊 -->
+  <div class="day-card" onclick="toggleDay(this)">
+    <div class="day-hd">
+      <div class="day-badge d-fly">D5</div>
+      <div class="day-meta">
+        <div class="day-title">KKday 名古屋出發 白川鄉・飛驒高山一日遊</div>
+        <div class="day-sub">住：名古屋市區飯店 ｜ 參考：KKday 產品 #17716</div>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="tl">
+        <li class="tl-row"><span class="tl-time">08:00</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">名古屋 VIP LINER 巴士站出發<div class="tl-note">建議提早 15 分抵達，備妥 KKday 訂單確認信件</div></div></li>
+        <li class="tl-row"><span class="tl-time">10:30</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">飛驒高山老街（自由活動 約90分鐘）<div class="tl-note">▸ 飛驒高山陣屋（舊政府廳舍，江戸時代文物）<br>▸ 高山宮川朝市（新鮮農產・飛驒民藝品）<br>不含餐方案旅客可在此覓食飛驒牛握壽司</div></div></li>
+        <li class="tl-row"><span class="tl-time">12:45</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">世界遺產 白川鄉合掌村（約150分鐘，含午餐時間）<div class="tl-note">▸ 荻町集落漫步・和田家・長瀬家合掌屋內部參觀<br>▸ 城山展望台俯瞰全景（步行約20分）<br>▸ 含餐方案：午餐含於行程內<br>▸ 不含餐方案：午餐請自理（村內餐廳・便當屋）</div></div></li>
+        <li class="tl-row"><span class="tl-time">18:00</span><div class="tl-mk"><div class="tl-dot g"></div></div><div class="tl-body">抵達名古屋車站，晚餐自由（ひつまぶし・手羽先），名古屋駅高島屋採購伴手禮</div></li>
+      </ul>
+      <div class="box-info">KKday 產品 #17716｜名古屋出發白川鄉・飛驒高山一日遊<br>
+        ▸ 不含餐方案：約 NT$1,500 / 人 ｜ 含午餐方案：約 NT$2,400 / 人<br>
+        ▸ 費用含來回巴士交通，中文導覽服務<br>
+        ▸ 請至 kkday.com 確認最新出團時間及完成預訂</div>
+    </div></div>
+  </div>
+
+  <!-- B-D6：同版本A -->
+  <div class="day-card" onclick="toggleDay(this)">
+    <div class="day-hd">
+      <div class="day-badge d-fly">D6</div>
+      <div class="day-meta">
+        <div class="day-title">名古屋 → 桃園 返台</div>
+        <div class="day-sub">IT207 NGO 13:45 → TPE 15:55（週二・六）</div>
+      </div>
+      <span class="chevron">▼</span>
+    </div>
+    <div class="day-body"><div class="day-body-inner">
+      <ul class="tl">
+        <li class="tl-row"><span class="tl-time">上午</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">名古屋市區自由活動（熱田神宮、覺王山、大須商店街）</div></li>
+        <li class="tl-row"><span class="tl-time">11:30</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">名鐵至中部機場（28分，¥870）<div class="tl-note">12:00 前抵機場，辦理 IT207 報到</div></div></li>
+        <li class="tl-row"><span class="tl-time">13:45</span><div class="tl-mk"><div class="tl-dot"></div><div class="tl-line"></div></div><div class="tl-body">IT207 NGO 出發</div></li>
+        <li class="tl-row"><span class="tl-time">15:55</span><div class="tl-mk"><div class="tl-dot g"></div></div><div class="tl-body">抵達桃園 TPE，出關後可搭 17:28 高鐵 21:17 抵高雄 ✓</div></li>
+      </ul>
+      <div class="box-info">週一出發（IT206）→ 週六回程（IT207）是本行程最佳組合，IT207 週六班 15:55 抵桃園，當天可搭高鐵南下</div>
+    </div></div>
+  </div>
+
+  </div><!-- /itin-b -->
+
 </section>
 
 <!-- ══════════════════ 登山路線 ══════════════════ -->
@@ -1566,6 +1735,12 @@ function initHikingMap() {
   });
 }
 
+function switchItin(id, btn) {
+  document.querySelectorAll('.itin-panel').forEach(p => { p.classList.remove('active'); });
+  document.querySelectorAll('.itin-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('itin-'+id).classList.add('active');
+  btn.classList.add('active');
+}
 function switchDep(id, btn) {
   document.querySelectorAll('.dep-panel').forEach(p => { p.classList.remove('active'); p.style.display='none'; });
   document.querySelectorAll('.dep-btn').forEach(b => b.classList.remove('active'));
