@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>立山黑部・剱岳・合掌村 6天行程 ｜ 2026 September</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600&family=Noto+Sans+TC:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
 :root {
   --ink:#1a1714;--ink2:#4a4540;--muted:#8a8078;
@@ -252,6 +254,14 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--paper);color:var(--i
 .sc-pill.warn{background:var(--amber-bg);color:var(--amber)}
 .sc-pill.night{background:var(--coral-bg);color:var(--coral)}
 
+/* ── DEP TOGGLE (TPE / KHH) ── */
+.dep-toggle{display:flex;gap:0;margin-bottom:20px;border:1.5px solid var(--teal);border-radius:10px;overflow:hidden;width:fit-content}
+.dep-btn{padding:10px 24px;font-size:13px;font-weight:500;color:var(--teal);background:#fff;border:none;cursor:pointer;transition:all .18s;letter-spacing:.3px}
+.dep-btn:hover{background:var(--teal-bg)}
+.dep-btn.active{background:var(--teal);color:#fff}
+.dep-panel{display:none}.dep-panel.active{display:block}
+.khh-note{background:#fff8e8;border:1px solid #e8c060;border-left:4px solid #9a6c1a;border-radius:10px;padding:12px 16px;font-size:12px;color:#5a4010;margin-bottom:18px;line-height:1.75}
+
 @media(max-width:600px){
   .hero{padding:44px 14px 36px}
   .main{padding:20px 12px 60px}
@@ -259,6 +269,8 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--paper);color:var(--i
   .route-vis{flex-direction:column;align-items:flex-start}
   .fwb-grid{min-width:420px}
   .sc-band .sc-d{font-size:9px;padding:5px 1px}
+  .dep-toggle{width:100%}
+  .dep-btn{flex:1;text-align:center;padding:10px 8px;font-size:12px}
 }
 </style>
 </head>
@@ -466,14 +478,7 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--paper);color:var(--i
 
   <!-- 地形圖 -->
   <div class="map-section">
-    <iframe class="map-iframe"
-      src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY&origin=36.5665972,137.6628943&destination=36.623512,137.617444&waypoints=36.577079,137.5948|36.577079,137.5948&mode=walking"
-      style="height:420px"
-      title="立山・剱岳 登山路線地形圖（Google Maps）"
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"
-      allowfullscreen>
-    </iframe>
+    <div id="hiking-map" style="width:100%;height:480px;border-radius:12px;overflow:hidden;border:1px solid var(--border)"></div>
     <div class="map-legend">
       <div class="legend-item"><div class="legend-dot" style="background:#1D9E75"></div>黑部水壩（1,470m）</div>
       <div class="legend-item"><div class="legend-dot" style="background:#0F6E56"></div>室堂（2,450m）</div>
@@ -623,6 +628,14 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--paper);color:var(--i
 <section id="flights" class="sec">
   <div class="sec-head"><h2>2026年機票方案</h2><p>虎航 2026夏季航班（3/29–10/24）已開賣</p></div>
 
+  <!-- 出發地切換 -->
+  <div class="dep-toggle">
+    <button class="dep-btn active" onclick="switchDep('tpe',this)">✈ 台北桃園 TPE 出發</button>
+    <button class="dep-btn" onclick="switchDep('khh',this)">✈ 高雄 KHH 出發</button>
+  </div>
+
+  <!-- ══ 台北出發 ══ -->
+  <div id="dep-tpe" class="dep-panel active">
   <div class="flight-note-box">
     ⚠️ <strong>2026年時刻說明</strong>：虎航 2026夏季航班已於 2025年12月起分批開賣，TPE–NGO（IT206）與 NGO–TPE（IT207）為固定航班。以下時刻以虎航官方公告（2025夏季延續時刻）為準，<strong>實際購票前請至 tigerairtw.com 確認最新時刻與班期</strong>，班期可能因季節調整有微幅異動。
   </div>
@@ -924,6 +937,243 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--paper);color:var(--i
       <li>行李策略：登山裝備用登山包 carry-on（10kg），城市衣物先宅配至名古屋飯店，節省托運費</li>
     </ul>
   </div>
+  </div><!-- /dep-tpe -->
+
+  <!-- ══ 高雄出發 ══ -->
+  <div id="dep-khh" class="dep-panel">
+
+    <div class="khh-note">
+      ✅ <strong>虎航 IT268 高雄直飛名古屋</strong>，每週<strong>一・三・六</strong>飛，全程約 3h25m，無需轉機或高鐵接駁，對南部旅伴方便性大幅提升。<br>
+      ⚠️ 去程 19:15 抵名古屋，<strong>建議在松本住一晚</strong>（距信濃大町35分），翌日清早輕鬆開始 D1 行程，勿趕深夜車。回程 IT269 NGO 19:55，D5 需 <strong>16:30 前搭特急ひだ</strong>離開高山。
+    </div>
+
+    <!-- KHH 班次週曆 -->
+    <div class="fwb">
+      <div class="fwb-hd">
+        <h3>🗓 班次週曆（KHH ⇄ NGO）</h3>
+        <p>IT268/IT269 每週一・三・六飛</p>
+      </div>
+      <div class="fwb-legend">
+        <span><div class="fwb-leg-box" style="background:var(--teal)"></div>去程主選（KHH→NGO）IT268</span>
+        <span><div class="fwb-leg-box" style="background:var(--coral)"></div>回程主選（NGO→KHH）IT269</span>
+      </div>
+      <div class="fwb-scroll">
+        <div class="fwb-section-label">去程 ✈ KHH → NGO（高雄 → 名古屋）</div>
+        <div class="fwb-grid">
+          <div class="fwb-day-head">週一</div>
+          <div class="fwb-day-head">週二</div>
+          <div class="fwb-day-head">週三</div>
+          <div class="fwb-day-head">週四</div>
+          <div class="fwb-day-head">週五</div>
+          <div class="fwb-day-head">週六</div>
+          <div class="fwb-day-head">週日</div>
+          <div class="fwb-cell">
+            <div class="fblock dep"><div class="fblock-fn">IT268 ★</div><div class="fblock-time">14:50 → 19:15</div><div class="fblock-tag">~NT$5,000</div></div>
+          </div>
+          <div class="fwb-cell no-fly"><span class="no-fly-icon">—</span></div>
+          <div class="fwb-cell">
+            <div class="fblock dep"><div class="fblock-fn">IT268 ★</div><div class="fblock-time">14:50 → 19:15</div><div class="fblock-tag">~NT$5,000</div></div>
+          </div>
+          <div class="fwb-cell no-fly"><span class="no-fly-icon">—</span></div>
+          <div class="fwb-cell no-fly"><span class="no-fly-icon">—</span></div>
+          <div class="fwb-cell">
+            <div class="fblock dep"><div class="fblock-fn">IT268 ★</div><div class="fblock-time">14:50 → 19:15</div><div class="fblock-tag">~NT$5,000</div></div>
+          </div>
+          <div class="fwb-cell no-fly"><span class="no-fly-icon">—</span></div>
+        </div>
+
+        <div class="fwb-section-label">回程 ✈ NGO → KHH（名古屋 → 高雄）</div>
+        <div class="fwb-grid">
+          <div class="fwb-day-head">週一</div>
+          <div class="fwb-day-head">週二</div>
+          <div class="fwb-day-head">週三</div>
+          <div class="fwb-day-head">週四</div>
+          <div class="fwb-day-head">週五</div>
+          <div class="fwb-day-head">週六</div>
+          <div class="fwb-day-head">週日</div>
+          <div class="fwb-cell">
+            <div class="fblock ret"><div class="fblock-fn">IT269 ★</div><div class="fblock-time">19:55 → 22:35</div><div class="fblock-tag">~NT$5,000</div></div>
+          </div>
+          <div class="fwb-cell no-fly"><span class="no-fly-icon">—</span></div>
+          <div class="fwb-cell">
+            <div class="fblock ret"><div class="fblock-fn">IT269 ★</div><div class="fblock-time">19:55 → 22:35</div><div class="fblock-tag">~NT$5,000</div></div>
+          </div>
+          <div class="fwb-cell no-fly"><span class="no-fly-icon">—</span></div>
+          <div class="fwb-cell no-fly"><span class="no-fly-icon">—</span></div>
+          <div class="fwb-cell">
+            <div class="fblock ret"><div class="fblock-fn">IT269 ★</div><div class="fblock-time">19:55 → 22:35</div><div class="fblock-tag">~NT$5,000</div></div>
+          </div>
+          <div class="fwb-cell no-fly"><span class="no-fly-icon">—</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KHH 推薦組合 -->
+    <div class="scenarios">
+      <div class="scenarios-hd">推薦組合 — 請假試算（高雄出發）</div>
+
+      <!-- 組合 A：週六去・週四回 ★最推薦 -->
+      <div class="scenario sc-rec">
+        <div class="sc-top">
+          <div>
+            <div class="sc-name">組合 A ── IT268 週六去 × IT269 週四回</div>
+            <div class="sc-meta">週六下午出發 → 週四晚上抵高雄 ｜ 請假 4 天（最省假）</div>
+          </div>
+          <div class="sc-price-wrap">
+            <div class="sc-price">~NT$10,000</div>
+            <div class="sc-leave">★ 最推薦</div>
+          </div>
+        </div>
+        <div class="sc-band">
+          <div class="sc-d dep">週六<br>✈KHH出發</div>
+          <div class="sc-d trip">週日<br>D1</div>
+          <div class="sc-d trip">週一<br>D2</div>
+          <div class="sc-d trip">週二<br>D3★</div>
+          <div class="sc-d trip">週三<br>D4</div>
+          <div class="sc-d ret">週四<br>D5+✈回</div>
+          <div class="sc-d off">週五<br>—</div>
+        </div>
+        <div class="sc-pills">
+          <span class="sc-pill">IT268 KHH 14:50 → NGO 19:15（週六）</span>
+          <span class="sc-pill">松本住一晚後 D1 週日輕鬆出發</span>
+          <span class="sc-pill">IT269 NGO 19:55 → KHH 22:35（週四）</span>
+          <span class="sc-pill good">✓ 週六週日不需請假</span>
+          <span class="sc-pill good">✓ 22:35抵高雄小港 免轉機</span>
+          <span class="sc-pill warn">⚠ D5 需 16:30 前搭ひだ離高山</span>
+        </div>
+      </div>
+
+      <!-- 組合 B：週一去・週六回 -->
+      <div class="scenario sc-flex">
+        <div class="sc-top">
+          <div>
+            <div class="sc-name">組合 B ── IT268 週一去 × IT269 週六回</div>
+            <div class="sc-meta">週一下午出發 → 週六晚上抵高雄 ｜ 請假 5 天</div>
+          </div>
+          <div class="sc-price-wrap">
+            <div class="sc-price">~NT$10,000</div>
+            <div class="sc-leave">彈性選擇</div>
+          </div>
+        </div>
+        <div class="sc-band">
+          <div class="sc-d dep">週一<br>✈KHH出發</div>
+          <div class="sc-d trip">週二<br>D1</div>
+          <div class="sc-d trip">週三<br>D2</div>
+          <div class="sc-d trip">週四<br>D3★</div>
+          <div class="sc-d trip">週五<br>D4</div>
+          <div class="sc-d ret">週六<br>D5+✈回</div>
+          <div class="sc-d off">週日<br>—</div>
+        </div>
+        <div class="sc-pills">
+          <span class="sc-pill">IT268 KHH 14:50 → NGO 19:15（週一）</span>
+          <span class="sc-pill">松本住一晚後 D1 週二出發</span>
+          <span class="sc-pill">IT269 NGO 19:55 → KHH 22:35（週六）</span>
+          <span class="sc-pill good">✓ 回程週六無需請假</span>
+          <span class="sc-pill warn">⚠ D5 週六需 16:30 前搭ひだ離高山</span>
+        </div>
+      </div>
+
+      <!-- 組合 C：週三去・週一回 -->
+      <div class="scenario sc-budget">
+        <div class="sc-top">
+          <div>
+            <div class="sc-name">組合 C ── IT268 週三去 × IT269 週一回</div>
+            <div class="sc-meta">週三下午出發 → 週一晚上抵高雄 ｜ 請假約 4.5 天</div>
+          </div>
+          <div class="sc-price-wrap">
+            <div class="sc-price">~NT$10,000</div>
+            <div class="sc-leave">週末含D3攻頂</div>
+          </div>
+        </div>
+        <div class="sc-band">
+          <div class="sc-d dep">週三<br>✈KHH出發</div>
+          <div class="sc-d trip">週四<br>D1</div>
+          <div class="sc-d trip">週五<br>D2</div>
+          <div class="sc-d trip">週六<br>D3★</div>
+          <div class="sc-d trip">週日<br>D4</div>
+          <div class="sc-d ret">週一<br>D5+✈回</div>
+          <div class="sc-d off">週二<br>—</div>
+        </div>
+        <div class="sc-pills">
+          <span class="sc-pill">IT268 KHH 14:50 → NGO 19:15（週三）</span>
+          <span class="sc-pill">松本住一晚後 D1 週四出發</span>
+          <span class="sc-pill">IT269 NGO 19:55 → KHH 22:35（週一）</span>
+          <span class="sc-pill good">✓ D3剱岳在週六 — 山屋人少且天氣佳</span>
+          <span class="sc-pill warn">⚠ 週三下午需提早離開辦公室</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- KHH 去程航班 -->
+    <div class="flight-header">
+      <h3>✈ 去程：高雄 KHH → 名古屋 NGO</h3>
+      <p>建議出發日：2026年9月（週一・三・六）｜ 抵達後松本住一晚</p>
+    </div>
+    <div class="flight-cards">
+      <div class="flight-card rec">
+        <div class="flight-rec-bar">★ 直飛 — 虎航唯一選擇 KHH 直飛 NGO</div>
+        <div class="flight-body">
+          <div class="flight-top">
+            <div><div class="airline-name">台灣虎航 Tigerair Taiwan</div><div class="airline-code">IT268 ｜ KHH → NGO</div></div>
+            <div><div class="price-big">~NT$5,000</div><div class="price-note">單程含稅（9月中參考價）</div></div>
+          </div>
+          <div class="route-vis">
+            <div class="airport-blk"><div class="airport-code">KHH</div><div class="airport-time">14:50</div><div class="airport-name">高雄小港</div></div>
+            <div class="flight-line-wrap"><div class="flight-line"></div><div class="flight-duration">約 3h 25m</div></div>
+            <div class="airport-blk"><div class="airport-code">NGO</div><div class="airport-time">19:15</div><div class="airport-name">名古屋中部</div></div>
+          </div>
+          <div class="flight-tags">
+            <span class="f-tag f-tag-good">✓ 直飛無轉機</span>
+            <span class="f-tag f-tag-neutral">週一・三・六飛</span>
+            <span class="f-tag f-tag-neutral">A320</span>
+            <span class="f-tag f-tag-warn">⚠ 19:15抵 建議松本住一晚</span>
+          </div>
+          <div class="flight-detail">抵名古屋後：名鐵→名古屋站（28min）→特急しなの→松本（2h）。建議松本住一晚（¥3,000–6,000），翌日08:00大糸線→信濃大町（35min）→巴士→大町溫泉鄉，可從容開始D1行程。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KHH 回程航班 -->
+    <div class="flight-header">
+      <h3>✈ 回程：名古屋 NGO → 高雄 KHH</h3>
+      <p>建議回程日：2026年9月（週一・三・六）｜ 22:35 直達高雄免轉機</p>
+    </div>
+    <div class="flight-cards">
+      <div class="flight-card rec">
+        <div class="flight-rec-bar">★ 直飛 — 22:35 直抵高雄小港</div>
+        <div class="flight-body">
+          <div class="flight-top">
+            <div><div class="airline-name">台灣虎航 Tigerair Taiwan</div><div class="airline-code">IT269 ｜ NGO → KHH</div></div>
+            <div><div class="price-big">~NT$5,000</div><div class="price-note">單程含稅</div></div>
+          </div>
+          <div class="route-vis">
+            <div class="airport-blk"><div class="airport-code">NGO</div><div class="airport-time">19:55</div><div class="airport-name">名古屋中部</div></div>
+            <div class="flight-line-wrap"><div class="flight-line"></div><div class="flight-duration">約 2h 40m</div></div>
+            <div class="airport-blk"><div class="airport-code">KHH</div><div class="airport-time">22:35</div><div class="airport-name">高雄小港</div></div>
+          </div>
+          <div class="flight-tags">
+            <span class="f-tag f-tag-good">✓ 直飛直達高雄 免高鐵</span>
+            <span class="f-tag f-tag-neutral">週一・三・六飛</span>
+            <span class="f-tag f-tag-warn">⚠ D5需16:30前搭ひだ離高山</span>
+          </div>
+          <div class="flight-detail">D5（高山・名古屋）需在 16:30 前搭特急ひだ離開高山（約2h車程），17:00 前抵名古屋市區，名鐵至機場28分，可從容辦理報到。22:35 落地高雄小港，免高鐵轉乘，直接回家。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="strategy-box">
+      <h3>✈ 高雄出發最佳組合建議</h3>
+      <ul>
+        <li><strong>最推薦</strong>：IT268（週六去）+ IT269（週四回）= 約NT$10,000，只需請4天假</li>
+        <li><strong>彈性選擇</strong>：IT268（週一去）+ IT269（週六回）= 約NT$10,000，請5天假，回程週六免假</li>
+        <li>去程比台北旅伴<strong>省 NT$1,000 左右</strong>，且無需高鐵接駁，全程更輕鬆</li>
+        <li>去程抵 NGO 後需在松本過夜（¥3,000–6,000 商務旅館），整體費用仍較 TPE 划算</li>
+        <li>購票平台：tigerairtw.com 直購最便宜，KHH-NGO 航線早鳥可低至 NT$3,000 單程</li>
+      </ul>
+    </div>
+
+  </div><!-- /dep-khh -->
+
 </section>
 
 <!-- ══════════════════ 預算 ══════════════════ -->
@@ -1180,12 +1430,109 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--paper);color:var(--i
 </footer>
 
 <script>
+var _hikingMap = null;
+
+function initHikingMap() {
+  if (_hikingMap) { _hikingMap.invalidateSize(); return; }
+
+  _hikingMap = L.map('hiking-map', { center: [36.597, 137.609], zoom: 13 });
+
+  L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+    maxZoom: 17,
+    attribution: '© <a href="https://opentopomap.org" target="_blank">OpenTopoMap</a> | © <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
+  }).addTo(_hikingMap);
+
+  // D2：室堂 → 一ノ越 → 雄山 → 大汝山 → 富士ノ折立 → 真砂岳 → 別山乗越 → 剣山荘
+  var d2 = [
+    [36.5769, 137.5948],
+    [36.5729, 137.5998],
+    [36.5716, 137.6052],
+    [36.5751, 137.6098],
+    [36.5797, 137.6124],
+    [36.5878, 137.6143],
+    [36.5968, 137.6183],
+    [36.6079, 137.6213]
+  ];
+
+  // D3 攻頂：剣山荘 → 一服劔 → 前劔 → 平蔵ノ頭 → 剱岳頂上
+  var d3up = [
+    [36.6079, 137.6213],
+    [36.6124, 137.6209],
+    [36.6188, 137.6188],
+    [36.6214, 137.6178],
+    [36.6235, 137.6174]
+  ];
+
+  // D3 下山：剱岳 → 剣山荘 → 別山乗越 → 雷鳥平
+  var d3down = [
+    [36.6235, 137.6174],
+    [36.6079, 137.6213],
+    [36.5968, 137.6183],
+    [36.5724, 137.6036]
+  ];
+
+  L.polyline(d2, { color: '#1D9E75', weight: 4, opacity: 0.9 }).addTo(_hikingMap)
+    .bindPopup('<b>D2 立山三山縱走</b><br>室堂 → 雄山 → 別山乗越 → 剣山荘');
+  L.polyline(d3up, { color: '#c0442a', weight: 4, opacity: 0.9 }).addTo(_hikingMap)
+    .bindPopup('<b>D3 剱岳攻頂（別山尾根）</b><br>剣山荘 → 前劔 → カニのたてばい → 頂上');
+  L.polyline(d3down, { color: '#e07030', weight: 3, opacity: 0.8, dashArray: '8,6' }).addTo(_hikingMap)
+    .bindPopup('<b>D3 下山路線</b><br>剱岳 → 剣山荘 → 別山乗越 → 雷鳥平');
+
+  var wps = [
+    { ll: [36.5769, 137.5948], name: '室堂', elev: '2,450m', color: '#0F6E56', note: 'D2 出發點' },
+    { ll: [36.5716, 137.6052], name: '雄山', elev: '3,003m', color: '#1a5fa0', note: 'D2 立山神社' },
+    { ll: [36.5751, 137.6098], name: '大汝山', elev: '3,015m', color: '#1a5fa0', note: 'D2 最高峰' },
+    { ll: [36.5878, 137.6143], name: '真砂岳', elev: '2,861m', color: '#1a5fa0', note: 'D2' },
+    { ll: [36.5968, 137.6183], name: '別山乗越', elev: '2,750m', color: '#9a6c1a', note: 'D2/D3 剱御前小屋・眺望剱岳絕佳' },
+    { ll: [36.6079, 137.6213], name: '剣山荘', elev: '2,520m', color: '#9a6c1a', note: 'D2 住宿・D3 攻頂出發' },
+    { ll: [36.6124, 137.6209], name: '一服劔', elev: '2,618m', color: '#c0442a', note: 'D3 鎖場起點' },
+    { ll: [36.6188, 137.6188], name: '前劔', elev: '2,813m', color: '#c0442a', note: 'D3 ⚠ 鎖場集中段' },
+    { ll: [36.6235, 137.6174], name: '★ 剱岳頂上', elev: '2,999m', color: '#800000', note: 'D3 360° 展望！' },
+    { ll: [36.5724, 137.6036], name: '雷鳥平', elev: '2,279m', color: '#6a3a80', note: 'D3 終點・雷鳥荘溫泉' }
+  ];
+
+  wps.forEach(function(wp) {
+    L.circleMarker(wp.ll, {
+      radius: wp.name.includes('★') ? 9 : 7,
+      fillColor: wp.color,
+      color: '#fff',
+      weight: 2,
+      fillOpacity: 0.92
+    }).addTo(_hikingMap)
+      .bindPopup('<b>' + wp.name + '</b>　' + wp.elev + '<br><small style="color:#666">' + wp.note + '</small>');
+  });
+
+  // 鎖場警告標記
+  var kusari = [
+    { ll: [36.6214, 137.6178], label: '🦀 カニのたてばい', note: 'D3 垂直岩壁攀登（上行）' },
+    { ll: [36.6220, 137.6175], label: '🦀 カニのよこばい', note: 'D3 橫向岩壁下降（下行）' }
+  ];
+  kusari.forEach(function(k) {
+    L.marker(k.ll, {
+      icon: L.divIcon({
+        className: '',
+        html: '<div style="background:#fff3;border:1.5px solid #c0442a;border-radius:4px;padding:2px 5px;font-size:11px;color:#c0442a;white-space:nowrap;backdrop-filter:blur(2px)">' + k.label + '</div>',
+        iconAnchor: [0, 10]
+      })
+    }).addTo(_hikingMap).bindPopup('<b>' + k.label + '</b><br><small>' + k.note + '</small>');
+  });
+}
+
+function switchDep(id, btn) {
+  document.querySelectorAll('.dep-panel').forEach(p => { p.classList.remove('active'); p.style.display='none'; });
+  document.querySelectorAll('.dep-btn').forEach(b => b.classList.remove('active'));
+  var panel = document.getElementById('dep-'+id);
+  panel.classList.add('active');
+  panel.style.display = 'block';
+  btn.classList.add('active');
+}
 function showTab(id, btn) {
   document.querySelectorAll('.sec').forEach(s => s.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   btn.classList.add('active');
   window.scrollTo({top: 0, behavior: 'smooth'});
+  if (id === 'hiking') setTimeout(initHikingMap, 50);
 }
 function toggleDay(card) {
   card.classList.toggle('open');
