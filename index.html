@@ -195,17 +195,91 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--paper);color:var(--i
 .gear-box{width:15px;height:15px;border:1.5px solid var(--border);border-radius:4px;flex-shrink:0;margin-top:1px}
 .req{font-size:10px;color:var(--coral);font-weight:600;margin-left:3px}
 
+/* ── HERO MOUNTAIN ── */
+.hero-mountain{position:absolute;bottom:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.hero-inner{position:relative;z-index:1}
+
+/* ── FLIGHT WEEK BOARD ── */
+.fwb{background:#fff;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:20px;box-shadow:var(--shadow)}
+.fwb-hd{background:linear-gradient(135deg,#0d2a1f,#1a4030);color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.fwb-hd h3{font-family:'DM Serif Display',serif;font-size:17px;font-weight:400}
+.fwb-hd p{font-size:12px;color:#7dc9a8}
+.fwb-legend{display:flex;gap:14px;padding:9px 14px;background:var(--paper2);border-bottom:1px solid var(--border);font-size:11px;flex-wrap:wrap}
+.fwb-legend span{display:flex;align-items:center;gap:5px;color:var(--ink2)}
+.fwb-leg-box{width:11px;height:11px;border-radius:3px;flex-shrink:0}
+.fwb-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.fwb-section-label{padding:7px 14px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);background:var(--paper2);border-bottom:1px solid var(--border2);border-top:1px solid var(--border)}
+.fwb-grid{display:grid;grid-template-columns:repeat(7,1fr);min-width:560px}
+.fwb-day-head{background:var(--paper2);padding:7px 4px;text-align:center;font-size:11px;font-weight:600;color:var(--muted);border-right:1px solid var(--border2);border-bottom:1px solid var(--border2)}
+.fwb-day-head:last-child{border-right:none}
+.fwb-cell{padding:6px 5px;border-right:1px solid var(--border2);border-bottom:1px solid var(--border2);min-height:84px;vertical-align:top}
+.fwb-cell:last-child{border-right:none}
+.fwb-cell.no-fly{background:var(--paper2);display:flex;align-items:center;justify-content:center}
+.no-fly-icon{color:var(--border);font-size:18px}
+.fblock{border-radius:7px;padding:5px 7px;font-size:11px;line-height:1.4;margin-bottom:4px}
+.fblock.dep{background:var(--teal);color:#fff}
+.fblock.dep-alt{background:var(--teal-bg);color:var(--teal);border:1px solid var(--teal2)}
+.fblock.ret{background:var(--coral);color:#fff}
+.fblock.ret-alt{background:var(--coral-bg);color:var(--coral);border:1px solid var(--coral)}
+.fblock-fn{font-weight:700;font-size:11px}
+.fblock-time{font-size:10px;margin-top:1px;opacity:.9}
+.fblock-tag{font-size:9px;margin-top:2px;opacity:.85}
+/* ── TRIP SCENARIOS ── */
+.scenarios{margin-bottom:24px}
+.scenarios-hd{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;padding:0 2px}
+.scenario{background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:8px;box-shadow:var(--shadow)}
+.scenario.sc-rec{border-left:4px solid var(--teal)}
+.scenario.sc-budget{border-left:4px solid #2a8a2a}
+.scenario.sc-flex{border-left:4px solid var(--amber)}
+.sc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.sc-name{font-size:13px;font-weight:600}
+.sc-meta{font-size:11px;color:var(--muted);margin-top:2px}
+.sc-price-wrap{text-align:right;flex-shrink:0}
+.sc-price{font-family:'DM Serif Display',serif;font-size:20px;color:var(--teal);line-height:1}
+.sc-leave{font-size:11px;color:var(--muted);margin-top:2px}
+.sc-band{display:flex;border-radius:8px;overflow:hidden;margin-bottom:10px}
+.sc-d{flex:1;padding:6px 2px;text-align:center;line-height:1.4;font-size:10px;font-weight:600}
+.sc-d.dep{background:var(--teal);color:#fff}
+.sc-d.trip{background:var(--teal-bg);color:var(--teal)}
+.sc-d.ret{background:var(--coral);color:#fff}
+.sc-d.off{background:var(--paper2);color:var(--border)}
+.sc-pills{display:flex;flex-wrap:wrap;gap:5px}
+.sc-pill{background:var(--paper2);border-radius:5px;padding:3px 9px;font-size:11px;color:var(--ink2)}
+.sc-pill.good{background:var(--teal-bg);color:var(--teal)}
+.sc-pill.warn{background:var(--amber-bg);color:var(--amber)}
+.sc-pill.night{background:var(--coral-bg);color:var(--coral)}
+
 @media(max-width:600px){
   .hero{padding:44px 14px 36px}
   .main{padding:20px 12px 60px}
   .budget-stats{grid-template-columns:1fr 1fr}
   .route-vis{flex-direction:column;align-items:flex-start}
+  .fwb-grid{min-width:420px}
+  .sc-band .sc-d{font-size:9px;padding:5px 1px}
 }
 </style>
 </head>
 <body>
 
 <div class="hero">
+  <!-- 剱岳山景 SVG -->
+  <svg class="hero-mountain" viewBox="0 0 1200 340" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+    <!-- 遠景山脈 -->
+    <path d="M0,340 L0,230 L80,190 L160,210 L260,160 L340,195 L440,145 L530,180 L620,150 L700,175 L790,130 L880,165 L970,135 L1060,160 L1150,125 L1200,145 L1200,340 Z" fill="rgba(255,255,255,0.035)"/>
+    <!-- 中景山脈 -->
+    <path d="M0,340 L0,270 L100,230 L200,255 L320,210 L420,245 L520,205 L610,235 L710,200 L800,225 L900,195 L1000,230 L1100,205 L1200,220 L1200,340 Z" fill="rgba(255,255,255,0.045)"/>
+    <!-- 剱岳主峰 — 尖銳岩稜輪廓 -->
+    <path d="M0,340 L0,310 L150,280 L280,265 L360,280 L420,255 L470,270 L510,245 L540,255 L570,225 L590,235 L610,210 L625,218 L640,195 L652,200 L665,178 L672,182 L682,162 L690,167 L700,148 L708,152 L718,132 L725,136 L732,118 L740,122 L748,105 L756,120 L764,110 L774,130 L786,122 L800,142 L815,135 L832,158 L855,148 L880,170 L910,162 L945,185 L990,200 L1050,235 L1130,265 L1200,280 L1200,340 Z" fill="rgba(255,255,255,0.055)"/>
+    <!-- 積雪亮點 (山頂雪痕) -->
+    <path d="M748,105 L740,122 L756,120 Z" fill="rgba(255,255,255,0.22)"/>
+    <path d="M732,118 L725,136 L748,105 L740,122 L732,118 Z" fill="rgba(255,255,255,0.14)"/>
+    <path d="M764,110 L756,120 L774,130 L786,122 Z" fill="rgba(255,255,255,0.10)"/>
+    <path d="M718,132 L710,148 L725,136 Z" fill="rgba(255,255,255,0.09)"/>
+    <!-- 山稜線光感 -->
+    <path d="M748,105 L764,110 L774,130 L800,142 L815,135 L832,158" stroke="rgba(255,255,255,0.12)" stroke-width="1.2" fill="none"/>
+    <path d="M748,105 L732,118 L718,132 L700,148 L690,167 L682,162" stroke="rgba(255,255,255,0.08)" stroke-width="1" fill="none"/>
+  </svg>
+
   <div class="hero-inner">
     <div class="hero-eyebrow">Japan Alpine · September 2026</div>
     <h1 class="hero-title">立山黑部・剱岳<br>合掌村 6天行程</h1>
@@ -390,7 +464,7 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--paper);color:var(--i
   <!-- 地形圖 -->
   <div class="map-section">
     <iframe class="map-iframe"
-      src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY&origin=36.5665972,137.6628943&destination=36.623512,137.617444&waypoints=36.577079,137.5948|36.577079,137.5948&mode=walking&maptype=terrain"
+      src="https://www.google.com/maps/embed/v1/directions?key=AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY&origin=36.5665972,137.6628943&destination=36.623512,137.617444&waypoints=36.577079,137.5948|36.577079,137.5948&mode=walking"
       style="height:420px"
       title="立山・剱岳 登山路線地形圖（Google Maps）"
       loading="lazy"
@@ -548,6 +622,198 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--paper);color:var(--i
 
   <div class="flight-note-box">
     ⚠️ <strong>2026年時刻說明</strong>：虎航 2026夏季航班已於 2025年12月起分批開賣，TPE–NGO（IT206）與 NGO–TPE（IT207）為固定航班。以下時刻以虎航官方公告（2025夏季延續時刻）為準，<strong>實際購票前請至 tigerairtw.com 確認最新時刻與班期</strong>，班期可能因季節調整有微幅異動。
+  </div>
+
+  <!-- ── 班次週曆 ── -->
+  <div class="fwb">
+    <div class="fwb-hd">
+      <h3>🗓 班次週曆</h3>
+      <p>依週幾查可搭班次，對應下方組合規劃請假</p>
+    </div>
+    <div class="fwb-legend">
+      <span><div class="fwb-leg-box" style="background:var(--teal)"></div>去程主選（TPE→NGO）</span>
+      <span><div class="fwb-leg-box" style="background:var(--teal-bg);border:1px solid var(--teal2)"></div>去程備選・深夜班</span>
+      <span><div class="fwb-leg-box" style="background:var(--coral)"></div>回程主選（NGO→TPE）</span>
+      <span><div class="fwb-leg-box" style="background:var(--coral-bg);border:1px solid var(--coral)"></div>回程備選・深夜班</span>
+    </div>
+    <div class="fwb-scroll">
+
+      <!-- 去程 -->
+      <div class="fwb-section-label">去程 ✈ TPE → NGO（桃園 → 名古屋）</div>
+      <div class="fwb-grid">
+        <div class="fwb-day-head">週一</div>
+        <div class="fwb-day-head">週二</div>
+        <div class="fwb-day-head">週三</div>
+        <div class="fwb-day-head">週四</div>
+        <div class="fwb-day-head">週五</div>
+        <div class="fwb-day-head">週六</div>
+        <div class="fwb-day-head">週日</div>
+        <!-- 週一 -->
+        <div class="fwb-cell">
+          <div class="fblock dep"><div class="fblock-fn">IT206 ★</div><div class="fblock-time">09:00 → 12:55</div><div class="fblock-tag">~NT$5,500</div></div>
+          <div class="fblock dep-alt"><div class="fblock-fn">MM722 ⚠</div><div class="fblock-time">02:40 → 06:30</div><div class="fblock-tag">~NT$4,800 深夜</div></div>
+        </div>
+        <!-- 週二 -->
+        <div class="fwb-cell">
+          <div class="fblock dep"><div class="fblock-fn">IT206 ★</div><div class="fblock-time">09:00 → 12:55</div><div class="fblock-tag">~NT$5,500</div></div>
+          <div class="fblock dep-alt"><div class="fblock-fn">MM722 ⚠</div><div class="fblock-time">02:40 → 06:30</div><div class="fblock-tag">~NT$4,800 深夜</div></div>
+        </div>
+        <!-- 週三 -->
+        <div class="fwb-cell">
+          <div class="fblock dep"><div class="fblock-fn">IT206 ★</div><div class="fblock-time">09:00 → 12:55</div><div class="fblock-tag">~NT$5,500</div></div>
+          <div class="fblock dep-alt"><div class="fblock-fn">MM722 ⚠</div><div class="fblock-time">02:40 → 06:30</div><div class="fblock-tag">~NT$4,800 深夜</div></div>
+        </div>
+        <!-- 週四 IT206停飛 -->
+        <div class="fwb-cell">
+          <div class="fblock dep-alt"><div class="fblock-fn">MM722 ⚠</div><div class="fblock-time">02:40 → 06:30</div><div class="fblock-tag">~NT$4,800 深夜</div></div>
+          <div style="text-align:center;color:var(--border);font-size:9px;padding-top:2px">IT206 停飛</div>
+        </div>
+        <!-- 週五 -->
+        <div class="fwb-cell">
+          <div class="fblock dep"><div class="fblock-fn">IT206 ★</div><div class="fblock-time">09:00 → 12:55</div><div class="fblock-tag">~NT$5,500</div></div>
+          <div class="fblock dep-alt"><div class="fblock-fn">MM722 ⚠</div><div class="fblock-time">02:40 → 06:30</div><div class="fblock-tag">~NT$4,800 深夜</div></div>
+        </div>
+        <!-- 週六 -->
+        <div class="fwb-cell">
+          <div class="fblock dep"><div class="fblock-fn">IT206 ★</div><div class="fblock-time">09:00 → 12:55</div><div class="fblock-tag">~NT$5,500</div></div>
+          <div class="fblock dep-alt"><div class="fblock-fn">MM722 ⚠</div><div class="fblock-time">02:40 → 06:30</div><div class="fblock-tag">~NT$4,800 深夜</div></div>
+        </div>
+        <!-- 週日 IT206停飛 -->
+        <div class="fwb-cell">
+          <div class="fblock dep-alt"><div class="fblock-fn">MM722 ⚠</div><div class="fblock-time">02:40 → 06:30</div><div class="fblock-tag">~NT$4,800 深夜</div></div>
+          <div style="text-align:center;color:var(--border);font-size:9px;padding-top:2px">IT206 停飛</div>
+        </div>
+      </div>
+
+      <!-- 回程 -->
+      <div class="fwb-section-label">回程 ✈ NGO → TPE（名古屋 → 桃園）</div>
+      <div class="fwb-grid">
+        <div class="fwb-day-head">週一</div>
+        <div class="fwb-day-head">週二</div>
+        <div class="fwb-day-head">週三</div>
+        <div class="fwb-day-head">週四</div>
+        <div class="fwb-day-head">週五</div>
+        <div class="fwb-day-head">週六</div>
+        <div class="fwb-day-head">週日</div>
+        <!-- 週一 無 -->
+        <div class="fwb-cell no-fly"><span class="no-fly-icon">—</span></div>
+        <!-- 週二 IT207 -->
+        <div class="fwb-cell">
+          <div class="fblock ret"><div class="fblock-fn">IT207 ★</div><div class="fblock-time">13:45 → 15:55</div><div class="fblock-tag">~NT$5,500</div></div>
+          <div style="font-size:9px;color:var(--teal);padding:2px 3px">✓ 15:55抵可搭高鐵</div>
+        </div>
+        <!-- 週三 無 -->
+        <div class="fwb-cell no-fly"><span class="no-fly-icon">—</span></div>
+        <!-- 週四 無 -->
+        <div class="fwb-cell no-fly"><span class="no-fly-icon">—</span></div>
+        <!-- 週五 IT209 -->
+        <div class="fwb-cell">
+          <div class="fblock ret-alt"><div class="fblock-fn">IT209 ⚠</div><div class="fblock-time">21:45 → 23:55</div><div class="fblock-tag">~NT$5,200 深夜</div></div>
+          <div style="font-size:9px;color:var(--coral);padding:2px 3px">⚠ 23:55抵 無高鐵</div>
+        </div>
+        <!-- 週六 IT207 -->
+        <div class="fwb-cell">
+          <div class="fblock ret"><div class="fblock-fn">IT207 ★</div><div class="fblock-time">13:45 → 15:55</div><div class="fblock-tag">~NT$5,500</div></div>
+          <div style="font-size:9px;color:var(--teal);padding:2px 3px">✓ 15:55抵可搭高鐵</div>
+        </div>
+        <!-- 週日 無 -->
+        <div class="fwb-cell no-fly"><span class="no-fly-icon">—</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── 推薦組合 & 請假試算 ── -->
+  <div class="scenarios">
+    <div class="scenarios-hd">推薦組合 — 請假試算</div>
+
+    <!-- 組合 A：IT206（週一）+ IT207（週六）= 6天 ★最推薦 -->
+    <div class="scenario sc-rec">
+      <div class="sc-top">
+        <div>
+          <div class="sc-name">組合 A ── IT206 去 × IT207 回</div>
+          <div class="sc-meta">週一出發 → 週六回台 ｜ 請假 6 天</div>
+        </div>
+        <div class="sc-price-wrap">
+          <div class="sc-price">~NT$11,000</div>
+          <div class="sc-leave">★ 最推薦</div>
+        </div>
+      </div>
+      <div class="sc-band">
+        <div class="sc-d dep">週一<br>✈出發</div>
+        <div class="sc-d trip">週二<br>D2</div>
+        <div class="sc-d trip">週三<br>D3★</div>
+        <div class="sc-d trip">週四<br>D4</div>
+        <div class="sc-d trip">週五<br>D5</div>
+        <div class="sc-d ret">週六<br>✈回台</div>
+        <div class="sc-d off">週日<br>—</div>
+      </div>
+      <div class="sc-pills">
+        <span class="sc-pill">IT206 TPE 09:00 → NGO 12:55</span>
+        <span class="sc-pill">IT207 NGO 13:45 → TPE 15:55</span>
+        <span class="sc-pill good">✓ 15:55抵台可搭高鐵南下</span>
+        <span class="sc-pill good">✓ 最佳行程節奏</span>
+      </div>
+    </div>
+
+    <!-- 組合 B：MM722（週一）+ IT207（週六）= 6天 💰最省 -->
+    <div class="scenario sc-budget">
+      <div class="sc-top">
+        <div>
+          <div class="sc-name">組合 B ── MM722 去 × IT207 回</div>
+          <div class="sc-meta">週一深夜出發 → 週六回台 ｜ 請假 6 天</div>
+        </div>
+        <div class="sc-price-wrap">
+          <div class="sc-price">~NT$10,300</div>
+          <div class="sc-leave">💰 最省錢</div>
+        </div>
+      </div>
+      <div class="sc-band">
+        <div class="sc-d dep">週一<br>✈出發</div>
+        <div class="sc-d trip">週二<br>D2</div>
+        <div class="sc-d trip">週三<br>D3★</div>
+        <div class="sc-d trip">週四<br>D4</div>
+        <div class="sc-d trip">週五<br>D5</div>
+        <div class="sc-d ret">週六<br>✈回台</div>
+        <div class="sc-d off">週日<br>—</div>
+      </div>
+      <div class="sc-pills">
+        <span class="sc-pill">MM722 TPE 02:40 → NGO 06:30</span>
+        <span class="sc-pill">IT207 NGO 13:45 → TPE 15:55</span>
+        <span class="sc-pill good">✓ 省約NT$700</span>
+        <span class="sc-pill warn">⚠ 週日深夜需在機場候機</span>
+      </div>
+    </div>
+
+    <!-- 組合 C：IT206（週一）+ IT209（週五）= 5天 -->
+    <div class="scenario sc-flex">
+      <div class="sc-top">
+        <div>
+          <div class="sc-name">組合 C ── IT206 去 × IT209 回</div>
+          <div class="sc-meta">週一出發 → 週五深夜回台 ｜ 請假 5 天</div>
+        </div>
+        <div class="sc-price-wrap">
+          <div class="sc-price">~NT$10,700</div>
+          <div class="sc-leave">少請1天假</div>
+        </div>
+      </div>
+      <div class="sc-band">
+        <div class="sc-d dep">週一<br>✈出發</div>
+        <div class="sc-d trip">週二<br>D2</div>
+        <div class="sc-d trip">週三<br>D3★</div>
+        <div class="sc-d trip">週四<br>D4</div>
+        <div class="sc-d ret">週五<br>✈回台</div>
+        <div class="sc-d off">週六<br>—</div>
+        <div class="sc-d off">週日<br>—</div>
+      </div>
+      <div class="sc-pills">
+        <span class="sc-pill">IT206 TPE 09:00 → NGO 12:55</span>
+        <span class="sc-pill">IT209 NGO 21:45 → TPE 23:55</span>
+        <span class="sc-pill good">✓ 少請1天假</span>
+        <span class="sc-pill night">⚠ 23:55深夜抵桃園 無高鐵</span>
+        <span class="sc-pill warn">⚠ D5需在週五高山→名古屋完成</span>
+      </div>
+    </div>
   </div>
 
   <div class="flight-header">
