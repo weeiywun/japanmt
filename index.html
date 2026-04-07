@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>立山黑部・剱岳・合掌村 6天行程 ｜ 2026 September</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230d2a1f'/%3E%3Cpath d='M2,27 L8,19 L11,22 L16,8 L21,22 L24,18 L30,27 Z' fill='rgba(255,255,255,0.92)'/%3E%3Cpath d='M14,12 L16,8 L18,12 L16,10.5 Z' fill='white'/%3E%3C/svg%3E">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600&family=Noto+Sans+TC:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -254,6 +255,33 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--paper);color:var(--i
 .sc-pill.warn{background:var(--amber-bg);color:var(--amber)}
 .sc-pill.night{background:var(--coral-bg);color:var(--coral)}
 
+/* ── ANIMATIONS ── */
+@keyframes fadeSlide{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes drift{0%{transform:translateY(0) translateX(0);opacity:0}10%{opacity:.65}90%{opacity:.25}100%{transform:translateY(-200px) translateX(var(--tx,20px));opacity:0}}
+.sec.active{animation:fadeSlide .24s ease both}
+
+/* ── HERO PARTICLES ── */
+.hero-particle{position:absolute;width:2px;height:2px;border-radius:50%;background:rgba(255,255,255,.72);animation:drift var(--dur,9s) var(--del,0s) ease-in-out infinite;pointer-events:none;z-index:0}
+
+/* ── TAB INDICATOR ── */
+.tab-btn{position:relative;transition:color .2s}
+.tab-btn::after{content:'';position:absolute;bottom:-1px;left:50%;right:50%;height:2.5px;background:var(--teal);border-radius:2px 2px 0 0;transition:left .22s ease,right .22s ease}
+.tab-btn.active{border-bottom-color:transparent}
+.tab-btn.active::after{left:10px;right:10px}
+
+/* ── HOVER LIFTS ── */
+.day-card{transition:transform .2s,box-shadow .2s}
+.day-card:hover{transform:translateY(-2px);box-shadow:0 6px 28px rgba(26,23,20,.13)}
+.flight-card{transition:transform .2s,box-shadow .2s}
+.flight-card:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(26,23,20,.12)}
+.scenario{transition:transform .18s,box-shadow .18s}
+.scenario:hover{transform:translateY(-1px);box-shadow:0 4px 18px rgba(26,23,20,.1)}
+.bk-item{transition:transform .18s,box-shadow .18s}
+.bk-item:hover{transform:translateY(-1px);box-shadow:0 4px 18px rgba(26,23,20,.1)}
+
+/* ── SEC HEAD ACCENT ── */
+.sec-head{border-left:3px solid var(--teal);padding-left:14px}
+
 /* ── DEP TOGGLE (TPE / KHH) ── */
 .dep-toggle{display:flex;gap:0;margin-bottom:20px;border:1.5px solid var(--teal);border-radius:10px;overflow:hidden;width:fit-content}
 .dep-btn{padding:10px 24px;font-size:13px;font-weight:500;color:var(--teal);background:#fff;border:none;cursor:pointer;transition:all .18s;letter-spacing:.3px}
@@ -277,6 +305,13 @@ body{font-family:'Noto Sans TC',sans-serif;background:var(--paper);color:var(--i
 <body>
 
 <div class="hero">
+  <!-- 浮動粒子 -->
+  <div class="hero-particle" style="left:8%;bottom:28%;--dur:9s;--del:0s;--tx:18px"></div>
+  <div class="hero-particle" style="left:22%;bottom:18%;--dur:12s;--del:2.5s;--tx:-14px"></div>
+  <div class="hero-particle" style="left:44%;bottom:35%;--dur:8s;--del:1.2s;--tx:22px"></div>
+  <div class="hero-particle" style="left:63%;bottom:22%;--dur:11s;--del:4s;--tx:-18px"></div>
+  <div class="hero-particle" style="left:80%;bottom:30%;--dur:10s;--del:0.7s;--tx:12px"></div>
+  <div class="hero-particle" style="left:91%;bottom:40%;--dur:7s;--del:3s;--tx:-8px"></div>
   <!-- 剱岳山景 SVG -->
   <svg class="hero-mountain" viewBox="0 0 1200 340" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
     <!-- 遠景山脈 -->
@@ -1442,58 +1477,71 @@ function initHikingMap() {
     attribution: '© <a href="https://opentopomap.org" target="_blank">OpenTopoMap</a> | © <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
   }).addTo(_hikingMap);
 
-  // D2：室堂 → 一ノ越 → 雄山 → 大汝山 → 富士ノ折立 → 真砂岳 → 別山乗越 → 剣山荘
+  // D2：室堂 → 一ノ越 → 雄山 → 大汝山 → 富士ノ折立 → 真砂岳 → 別山 → 別山乗越(剱御前小屋) → 剱沢 → 剣山荘(住宿)
   var d2 = [
-    [36.5769, 137.5948],
-    [36.5729, 137.5998],
-    [36.5716, 137.6052],
-    [36.5751, 137.6098],
-    [36.5797, 137.6124],
-    [36.5878, 137.6143],
-    [36.5968, 137.6183],
-    [36.6079, 137.6213]
+    [36.5769, 137.5948], // 室堂
+    [36.5729, 137.5998], // 一ノ越
+    [36.5716, 137.6052], // 雄山
+    [36.5751, 137.6098], // 大汝山
+    [36.5797, 137.6124], // 富士ノ折立
+    [36.5878, 137.6143], // 真砂岳
+    [36.6022, 137.6200], // 別山 ← 新增
+    [36.5964, 137.6188], // 別山乗越(剱御前小屋)
+    [36.6042, 137.6218], // 剱沢 ← 新增（山荘下方谷地）
+    [36.6079, 137.6213]  // 剣山荘（D2 住宿）
   ];
 
-  // D3 攻頂：剣山荘 → 一服劔 → 前劔 → 平蔵ノ頭 → 剱岳頂上
+  // D3 攻頂（別山尾根 上行）：剣山荘 → 一服劔 → 前劔 → 平蔵ノ頭 → カニのたてばい → 剱岳頂上
   var d3up = [
-    [36.6079, 137.6213],
-    [36.6124, 137.6209],
-    [36.6188, 137.6188],
-    [36.6214, 137.6178],
-    [36.6235, 137.6174]
+    [36.6079, 137.6213], // 剣山荘
+    [36.6124, 137.6209], // 一服劔
+    [36.6188, 137.6188], // 前劔
+    [36.6214, 137.6178], // 平蔵ノ頭
+    [36.6235, 137.6174]  // 剱岳頂上
   ];
 
-  // D3 下山：剱岳 → 剣山荘 → 別山乗越 → 雷鳥平
+  // D3 下山（カニのよこばい → 剣山荘 → 剱御前小屋 → 雷鳥坂 → 雷鳥平）
   var d3down = [
-    [36.6235, 137.6174],
-    [36.6079, 137.6213],
-    [36.5968, 137.6183],
-    [36.5724, 137.6036]
+    [36.6235, 137.6174], // 剱岳頂上
+    [36.6214, 137.6178], // 平蔵ノ頭（カニのよこばい）
+    [36.6188, 137.6188], // 前劔
+    [36.6124, 137.6209], // 一服劔
+    [36.6079, 137.6213], // 剣山荘（午休後出發）
+    [36.6042, 137.6218], // 剱沢
+    [36.5964, 137.6188], // 別山乗越（剱御前小屋）← 上行到此
+    [36.5820, 137.6095], // 雷鳥坂途中
+    [36.5724, 137.6036]  // 雷鳥平・雷鳥荘（D3 住宿）
   ];
 
   L.polyline(d2, { color: '#1D9E75', weight: 4, opacity: 0.9 }).addTo(_hikingMap)
-    .bindPopup('<b>D2 立山三山縱走</b><br>室堂 → 雄山 → 別山乗越 → 剣山荘');
+    .bindPopup('<b>D2 立山三山縱走</b><br>室堂 → 雄山 → 大汝山 → 富士ノ折立 → 真砂岳 → 別山 → 別山乗越 → 剣山荘（住宿）');
   L.polyline(d3up, { color: '#c0442a', weight: 4, opacity: 0.9 }).addTo(_hikingMap)
-    .bindPopup('<b>D3 剱岳攻頂（別山尾根）</b><br>剣山荘 → 前劔 → カニのたてばい → 頂上');
+    .bindPopup('<b>D3 剱岳攻頂（別山尾根 上行）</b><br>剣山荘 04:00 出發 → 一服劔 → 前劔 → カニのたてばい → 頂上');
   L.polyline(d3down, { color: '#e07030', weight: 3, opacity: 0.8, dashArray: '8,6' }).addTo(_hikingMap)
-    .bindPopup('<b>D3 下山路線</b><br>剱岳 → 剣山荘 → 別山乗越 → 雷鳥平');
+    .bindPopup('<b>D3 下山（カニのよこばい → 雷鳥荘）</b><br>剱岳 → 剣山荘（午休）→ 剱御前小屋 → 雷鳥坂 → 雷鳥平');
 
   var wps = [
-    { ll: [36.5769, 137.5948], name: '室堂', elev: '2,450m', color: '#0F6E56', note: 'D2 出發點' },
-    { ll: [36.5716, 137.6052], name: '雄山', elev: '3,003m', color: '#1a5fa0', note: 'D2 立山神社' },
-    { ll: [36.5751, 137.6098], name: '大汝山', elev: '3,015m', color: '#1a5fa0', note: 'D2 最高峰' },
-    { ll: [36.5878, 137.6143], name: '真砂岳', elev: '2,861m', color: '#1a5fa0', note: 'D2' },
-    { ll: [36.5968, 137.6183], name: '別山乗越', elev: '2,750m', color: '#9a6c1a', note: 'D2/D3 剱御前小屋・眺望剱岳絕佳' },
-    { ll: [36.6079, 137.6213], name: '剣山荘', elev: '2,520m', color: '#9a6c1a', note: 'D2 住宿・D3 攻頂出發' },
-    { ll: [36.6124, 137.6209], name: '一服劔', elev: '2,618m', color: '#c0442a', note: 'D3 鎖場起點' },
-    { ll: [36.6188, 137.6188], name: '前劔', elev: '2,813m', color: '#c0442a', note: 'D3 ⚠ 鎖場集中段' },
-    { ll: [36.6235, 137.6174], name: '★ 剱岳頂上', elev: '2,999m', color: '#800000', note: 'D3 360° 展望！' },
-    { ll: [36.5724, 137.6036], name: '雷鳥平', elev: '2,279m', color: '#6a3a80', note: 'D3 終點・雷鳥荘溫泉' }
+    { ll: [36.5769, 137.5948], name: '室堂', elev: '2,450m', color: '#0F6E56', note: 'D2 出發點', r: 7 },
+    { ll: [36.5716, 137.6052], name: '雄山', elev: '3,003m', color: '#1a5fa0', note: 'D2 立山神社', r: 7 },
+    { ll: [36.5751, 137.6098], name: '大汝山', elev: '3,015m', color: '#1a5fa0', note: 'D2 最高峰', r: 7 },
+    { ll: [36.5878, 137.6143], name: '真砂岳', elev: '2,861m', color: '#1a5fa0', note: 'D2', r: 6 },
+    { ll: [36.6022, 137.6200], name: '別山', elev: '2,880m', color: '#1a5fa0', note: 'D2 縱走尾稜', r: 6 },
+    { ll: [36.5964, 137.6188], name: '別山乗越', elev: '2,750m', color: '#9a6c1a', note: 'D2/D3 剱御前小屋・眺望剱岳絕佳', r: 7 },
+    { ll: [36.6124, 137.6209], name: '一服劔', elev: '2,618m', color: '#c0442a', note: 'D3 鎖場起點', r: 6 },
+    { ll: [36.6188, 137.6188], name: '前劔', elev: '2,813m', color: '#c0442a', note: 'D3 ⚠ 鎖場集中段', r: 7 },
+    { ll: [36.6235, 137.6174], name: '★ 剱岳頂上', elev: '2,999m', color: '#800000', note: 'D3 360° 展望！', r: 10 },
+    { ll: [36.5724, 137.6036], name: '雷鳥平', elev: '2,279m', color: '#6a3a80', note: 'D3 終點・雷鳥荘溫泉', r: 7 }
   ];
+
+  // 剣山荘 特殊標記（D2/D3 住宿節點）
+  L.circleMarker([36.6079, 137.6213], {
+    radius: 10, fillColor: '#9a6c1a', color: '#fff', weight: 3, fillOpacity: 1
+  }).addTo(_hikingMap)
+    .bindPopup('<b>⛺ 剣山荘（D2 住宿）</b>　2,520m<br><small style="color:#666">D2 縱走終點・D3 04:00 攻頂出發</small>');
 
   wps.forEach(function(wp) {
     L.circleMarker(wp.ll, {
-      radius: wp.name.includes('★') ? 9 : 7,
+      radius: wp.r || 7,
       fillColor: wp.color,
       color: '#fff',
       weight: 2,
